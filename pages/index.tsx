@@ -1,7 +1,8 @@
 import { Box, Container } from 'theme-ui';
 import getConfig from 'next/config';
+import { NextPage } from 'next';
 
-export default function Home() {
+const HomePage: NextPage = () => {
   const { publicRuntimeConfig } = getConfig();
   const apiUrl = publicRuntimeConfig.nextPublicApiBaseUri;
 
@@ -12,5 +13,7 @@ export default function Home() {
         <h1>{apiUrl}</h1>
       </Box>
     </Container>
-  )
+  );
 }
+
+export default HomePage;
