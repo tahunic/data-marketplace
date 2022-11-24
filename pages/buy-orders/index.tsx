@@ -1,7 +1,42 @@
 import { NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import Head from 'next/head';
+import { Header } from '@components/molecules/Header';
+import { Box, Container, Text } from 'theme-ui';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const BuyOrders: NextPage = () => {
-  return <h1>Buy orders page</h1>;
+  let { t } = useTranslation();
+  return (
+    <>
+      <Head>
+        <title>Buy Orders | Data Marketplace</title>
+        <meta name="description" content="Buy orders description for SEO" />
+      </Head>
+      <Header />
+      <Container>
+        <Box>
+          <Text
+            as="h1"
+            sx={{
+              textAlign: 'center',
+              margin: '30px 0 15px 0',
+            }}
+          >
+            {t('buy_orders', 'Buy Orders')}
+          </Text>
+        </Box>
+      </Container>
+    </>
+  );
 };
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
+}
 
 export default BuyOrders;

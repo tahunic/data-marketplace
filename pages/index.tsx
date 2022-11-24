@@ -21,10 +21,12 @@ const HomePage: NextPage = () => {
             setTimeout(() => setLoading(false), 1000);
           }}
           loading={loading}
-        >Test</Button>
+        >
+          Test
+        </Button>
       </Box>
     </Container>
   );
-}
+};
 
 export default HomePage;
