@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { ErrorInfo, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 interface StateType {
   hasError: boolean;

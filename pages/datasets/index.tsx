@@ -1,12 +1,18 @@
 import { NextPage } from 'next';
-import { Box, Container, Text } from 'theme-ui';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Header } from '@components/molecules/Header';
+import { Dataset } from '@data/models/Dataset.model';
+import getConfig from 'next/config';
+import { DatasetCardList } from '@components/organisms/DatasetCardList';
 
-const Datasets: NextPage = () => {
-  let { t } = useTranslation();
+type DatasetsProps = {
+  datasets: Dataset[];
+}
+
+const Datasets: NextPage<DatasetsProps> = ({
+  datasets,
+}) => {
   return (
     <>
       <Head>
@@ -14,29 +20,22 @@ const Datasets: NextPage = () => {
         <meta name="description" content="Datasets description for SEO" />
       </Head>
       <Header />
-      <Container>
-        <Box>
-          <Text
-            as="h1"
-            sx={{
-              textAlign: 'center',
-              margin: '30px 0 15px 0',
-            }}
-          >
-            {t('datasets', 'Datasets')}
-          </Text>
-        </Box>
-      </Container>
+      <DatasetCardList datasets={datasets} />
     </>
   );
 };
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
+  const { publicRuntimeConfig } = getConfig();
+  const res = await fetch(`${publicRuntimeConfig.nextPublicApiBaseUri}/datasets`);
+  const datasets = await res.json();
+
   return {
     props: {
+      datasets,
       ...(await serverSideTranslations(locale, ['common'])),
     },
-  };
+  }
 }
 
 export default Datasets;

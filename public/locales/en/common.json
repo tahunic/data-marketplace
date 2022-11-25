@@ -1,4 +1,10 @@
 {
   "buy_orders": "Buy Orders",
-  "datasets": "Datasets"
+  "datasets": "Datasets",
+  "dataset_description": "Dataset Description",
+  "cost_per_record": "Cost Per Record",
+  "available_records": "Available Records",
+  "showing": "Showing",
+  "results_from": "results from",
+  "included_countries": "Included Countries"
 }

@@ -20,7 +20,7 @@ const BuyOrders: NextPage = () => {
             as="h1"
             sx={{
               textAlign: 'center',
-              margin: '30px 0 15px 0',
+              margin: '30px 0 20px 0',
             }}
           >
             {t('buy_orders', 'Buy Orders')}

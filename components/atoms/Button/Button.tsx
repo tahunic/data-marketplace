@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import * as ThemeUI from 'theme-ui';
 import { Spinner } from 'theme-ui';
 import { theme } from '@styles/theme';

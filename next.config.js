@@ -11,7 +11,20 @@ const nextConfig = {
   publicRuntimeConfig: {
     nextPublicApiBaseUri: NEXT_PUBLIC_API_BASE_URI
   },
-  i18n
+  i18n,
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/buy-orders',
+        permanent: true,
+        locale: false
+      }
+    ];
+  },
+  images: {
+    domains: ['picsum.photos']
+  }
 }
 
 module.exports = nextConfig

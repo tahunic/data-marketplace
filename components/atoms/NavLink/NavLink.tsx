@@ -16,6 +16,8 @@ export const NavLink: FC<NavLinkProps> = ({ to, children, ...props }) => {
       className="nav-link"
       style={{ fontWeight: router.pathname?.startsWith(to) ? '400' : '200' }}
       {...props}
-    >{children}</Link>
+    >
+      {children}
+    </Link>
   );
 };

@@ -3,7 +3,7 @@ import type { Theme } from 'theme-ui';
 export const theme: Theme = {
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   sizes: {
-    container: '1320px',
+    container: '840px',
   },
   fonts: {
     body: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
@@ -22,7 +22,10 @@ export const theme: Theme = {
   },
   colors: {
     text: '#000',
-    background: '#fff',
+    secondaryText: '#5e5e5e',
+    background: '#d9d9d9',
+    headerBackground: '#333333',
+    cardBackground: '#bdbdbd',
     primary: '#07c',
     secondary: '#30c',
     muted: '#f6f6f6',
