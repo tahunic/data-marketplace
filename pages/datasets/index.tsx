@@ -18,7 +18,7 @@ const Datasets: NextPage = () => {
   }, [refetch, selectedCountries]);
 
   if (isError) {
-    return <h3>{t('Datasets could not be fetched', 'Datasets could not be fetched')}</h3>
+    return <h3>{t('datasets_could_not_be_fetched', 'Datasets could not be fetched')}</h3>
   }
 
   return (

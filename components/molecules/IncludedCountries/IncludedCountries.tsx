@@ -41,6 +41,8 @@ export const IncludedCountries: FC = () => {
             sx={{
               background: country.selected ? theme.colors?.muted : theme.colors?.cardBackground,
               opacity: country.selected ? 1 : 0.3,
+              border: `2px solid ${theme.colors?.cardBackground}`,
+              borderRadius: '50px',
             }}
           />
         ))}

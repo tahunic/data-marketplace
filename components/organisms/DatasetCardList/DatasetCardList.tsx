@@ -5,6 +5,7 @@ import { Dataset } from '@data/models/Dataset.model';
 import { DatasetCard } from '@components/molecules/DatasetCard';
 import { ShowingResultsFrom } from '@components/molecules/ShowingResultsFrom';
 import { Country } from '@data/models/Country.model';
+import { PageHeader } from '@components/atoms/PageHeader';
 
 type DatasetCardListProps = {
   datasets: Dataset[];
@@ -16,21 +17,11 @@ export const DatasetCardList: FC<DatasetCardListProps> = ({
   let { t } = useTranslation();
 
   return (
-    <Container>
+    <Container sx={{ marginBottom: '150px' }}>
       <Box>
-        <Text
-          as="h1"
-          sx={{
-            textAlign: 'center',
-            margin: '30px 0 20px 0',
-          }}
-        >
-          {t('datasets', 'Datasets')}
-        </Text>
+        <PageHeader title={t('datasets', 'Datasets')} />
 
-        <ShowingResultsFrom
-          totalResults={datasets.length}
-        />
+        <ShowingResultsFrom totalResults={datasets.length} />
 
         <Flex
           sx={{

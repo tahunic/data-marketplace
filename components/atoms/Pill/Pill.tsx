@@ -15,7 +15,7 @@ const Pill: FC<PillProps> = ({
     <Button
       sx={{
         backgroundColor: theme.colors?.muted,
-        borderRadius: '25px',
+        borderRadius: '50px',
         padding: '3px 15px',
       }}
       {...props}
