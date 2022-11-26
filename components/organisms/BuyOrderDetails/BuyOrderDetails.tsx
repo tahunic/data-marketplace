@@ -7,15 +7,18 @@ import { useTranslation } from 'next-i18next';
 import { format } from 'date-fns';
 import { theme } from '@styles/theme';
 import { Button } from '@components/atoms/Button';
+import { DatasetMiniCardList } from '@components/organisms/DatasetMiniCardList';
+import { IncludedCountries } from '@components/molecules/IncludedCountries';
+import { CountryState } from '@store/countries';
 
 type BuyOrderDetailsProps = {
   orderName: string;
   dateCreated: Date;
   budget: number;
   datasets: Dataset[];
-  includedDatasets: number[];
+  includedDatasetIds: number[];
   countries: Country[];
-  includedCountries: string[];
+  includedCountryIds: string[];
 }
 
 export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
@@ -23,11 +26,23 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
   dateCreated,
   budget,
   datasets,
-  includedDatasets,
+  includedDatasetIds,
   countries,
-  includedCountries,
+  includedCountryIds,
 }) => {
   const { t } = useTranslation();
+
+  function includedCountries(): CountryState[] {
+    return includedCountryIds
+      ?.map(countryCode => countries?.find(country => country.countryCode === countryCode))
+      ?.filter(country => country !== undefined) as CountryState[];
+  }
+
+  function includedDatasets(): Dataset[] {
+    return includedDatasetIds
+      ?.map(datasetId => datasets?.find(dataset => dataset.id === datasetId))
+      ?.filter(dataset => dataset !== undefined) as Dataset[];
+  }
 
   return (
     <Flex
@@ -57,12 +72,14 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
 
       <Flex sx={{ gap: '5px', flexDirection: 'column' }}>
         <FieldLabel>{t('included_datasets', 'Included datasets')}</FieldLabel>
-        <Text>[{includedDatasets.join(', ')}]</Text>
+        <DatasetMiniCardList datasets={includedDatasets()} />
       </Flex>
 
       <Flex sx={{ gap: '5px', flexDirection: 'column' }}>
         <FieldLabel>{t('included_countries', 'Included countries')}</FieldLabel>
-        <Text>[{includedCountries.join(', ')}]</Text>
+        <Flex sx={{ gap: '5px', flexDirection: 'row' }}>
+          <IncludedCountries countries={includedCountries()} />
+        </Flex>
       </Flex>
 
       <Flex sx={{ gap: '5px', justifyContent: 'flex-end' }}>

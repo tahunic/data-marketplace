@@ -6,10 +6,10 @@ import React from 'react';
 import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
 import { BuyOrderDetails } from '@components/organisms/BuyOrderDetails/BuyOrderDetails';
-import { useGetCountries } from '@hooks/useGetCountries';
 import { useGetDatasets } from '@hooks/useGetDatasets';
 import { Container } from 'theme-ui';
 import { PageHeader } from '@components/atoms/PageHeader';
+import { useCountries } from '@store/countries';
 
 type BuyOrderDetailsProps = {
   buyOrderId: number;
@@ -18,8 +18,8 @@ type BuyOrderDetailsProps = {
 const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
   buyOrderId,
 }) => {
+  const { countries } = useCountries();
   const { buyOrder, isLoading, isError } = useGetBuyOrder(buyOrderId);
-  const { countries } = useGetCountries();
   const { datasets } = useGetDatasets(countries);
   const { t } = useTranslation();
 
@@ -38,7 +38,7 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
           <title>Buy Order Details | Data Marketplace</title>
           <meta name="description" content="Buy Order description for SEO" />
         </Head>
-        <Container>
+        <Container sx={{ width: '680px' }}>
           <PageHeader title={t('buy_order_details', 'Buy Order Details')} />
 
           <BuyOrderDetails
@@ -47,8 +47,8 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
             budget={buyOrder.budget}
             datasets={datasets}
             countries={countries}
-            includedDatasets={buyOrder.datasetIds}
-            includedCountries={buyOrder.countries}
+            includedDatasetIds={buyOrder.datasetIds}
+            includedCountryIds={buyOrder.countries}
           />
         </Container>
       </>

@@ -20,5 +20,6 @@
   "included_datasets": "Included datasets",
   "edit_order": "Edit order",
   "save_order": "Save order",
-  "delete_order": "Delete order"
+  "delete_order": "Delete order",
+  "per_record": "per record"
 }

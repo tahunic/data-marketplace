@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Text } from 'theme-ui';
+import { Text } from 'theme-ui';
 import { theme } from '@styles/theme';
 import { Button, ButtonProps } from '@components/atoms/Button';
 
@@ -7,7 +7,7 @@ type PillProps = ButtonProps & {
   title: string;
 }
 
-const Pill: FC<PillProps> = ({
+export const Pill: FC<PillProps> = ({
   title,
   ...props
 }) => {
@@ -24,5 +24,3 @@ const Pill: FC<PillProps> = ({
     </Button>
   );
 };
-
-export default Pill;
