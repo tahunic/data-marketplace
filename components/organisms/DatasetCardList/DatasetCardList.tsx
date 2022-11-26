@@ -14,6 +14,10 @@ export const DatasetCardList: FC<DatasetCardListProps> = ({
 }) => {
   let { t } = useTranslation();
 
+  if (!datasets) {
+    return null;
+  }
+
   return (
     <Container>
       <Box>

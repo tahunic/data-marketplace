@@ -5,16 +5,22 @@ import { theme } from '@styles/theme';
 import { appWithTranslation } from 'next-i18next';
 import { ErrorBoundary } from '@components/molecules/ErrorBoundary';
 import StoreProvider from '@store/StoreProvider';
+import { ServiceProvider } from '@hooks/ServiceProvider';
+import { Layout } from '@components/organisms/Layout';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <ThemeProvider theme={theme}>
-      <ErrorBoundary>
-        <StoreProvider>
-          <Component {...pageProps} />
-        </StoreProvider>
-      </ErrorBoundary>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ServiceProvider>
+        <ThemeProvider theme={theme}>
+          <StoreProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </StoreProvider>
+        </ThemeProvider>
+      </ServiceProvider>
+    </ErrorBoundary>
   );
 };
 

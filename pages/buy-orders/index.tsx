@@ -14,7 +14,6 @@ const BuyOrders: NextPage = () => {
         <title>Buy Orders | Data Marketplace</title>
         <meta name="description" content="Buy orders description for SEO" />
       </Head>
-      <Header />
       <Container>
         <Box>
           <Text
