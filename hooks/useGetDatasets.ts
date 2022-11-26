@@ -33,8 +33,9 @@ export function useGetDatasets(): {
     ?.map((dataset: Dataset) => ({
       ...dataset,
       availableRecords: selectedCountries
-        .filter((country: Country) => country.storedData.some((sd: StoredData) => sd.datasetId === dataset.id))
-        .flatMap((country: Country) => country.storedData.map((sd: StoredData) => sd.recordCount))
+        .flatMap((country: Country) => country.storedData)
+        .filter((storedData: StoredData) => storedData.datasetId === dataset.id)
+        .map((storedData: StoredData) => storedData.recordCount)
         .reduce((acc: number, currentValue: number) => acc + currentValue, 0),
       includedCountries: selectedCountries
         .filter((country: Country) => country.storedData.some((sd: StoredData) => sd.datasetId === dataset.id))
