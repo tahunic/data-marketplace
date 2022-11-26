@@ -38,7 +38,8 @@ export function useGetDatasets(): {
         .map((storedData: StoredData) => storedData.recordCount)
         .reduce((acc: number, currentValue: number) => acc + currentValue, 0),
       includedCountries: selectedCountries
-        .filter((country: Country) => country.storedData.some((sd: StoredData) => sd.datasetId === dataset.id))
+        .filter((country: Country) => country.storedData
+          .some((sd: StoredData) => sd.datasetId === dataset.id && sd.recordCount > 0))
     }))
     ?.filter((dataset: Dataset) => Number(dataset.availableRecords) > 0) ?? [];
 
