@@ -5,19 +5,16 @@ import { Dataset } from '@data/models/Dataset.model';
 import { StoredData } from '@data/models/StoredData.model';
 import { Country } from '@data/models/Country.model';
 import { API_ROUTES } from '@data/routes';
-import { useCountries } from '@store/countries';
 
 export const GET_DATASETS_KEY = '@datasets/get';
 
-export function useGetDatasets(): {
+export function useGetDatasets(countryFilter: Country[]): {
   datasets: Dataset[];
   isLoading: boolean;
   isError: boolean;
   refetch: <TPageData>(options?: ReactQuery.RefetchOptions & ReactQuery.RefetchQueryFilters<TPageData>) =>
     Promise<ReactQuery.QueryObserverResult<Dataset[]>>
 } {
-  const { countries, selectedCountries } = useCountries();
-
   const {
     data,
     isLoading,
@@ -25,18 +22,17 @@ export function useGetDatasets(): {
     refetch,
   } = ReactQuery.useQuery([GET_DATASETS_KEY], () =>
       axios.get(`${getBaseUrl()}/${API_ROUTES.DATASETS}`).then((res) => res.data),
-    { enabled: countries?.length > 0 }
   );
 
   const datasets = data
     ?.map((dataset: Dataset) => ({
       ...dataset,
-      availableRecords: selectedCountries
+      availableRecords: countryFilter
         .flatMap((country: Country) => country.storedData)
         .filter((storedData: StoredData) => storedData.datasetId === dataset.id)
         .map((storedData: StoredData) => storedData.recordCount)
         .reduce((acc: number, currentValue: number) => acc + currentValue, 0),
-      includedCountries: selectedCountries
+      includedCountries: countryFilter
         .filter((country: Country) => country.storedData
           .some((sd: StoredData) => sd.datasetId === dataset.id && sd.recordCount > 0))
     }))

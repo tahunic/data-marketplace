@@ -6,12 +6,19 @@
   "available_records": "Available Records",
   "showing": "Showing",
   "results_from": "results from",
-  "included_countries": "Included Countries",
+  "included_countries": "Included countries",
   "records": "records",
   "countries_could_not_be_fetched": "Countries could not be fetched",
   "datasets_could_not_be_fetched": "Datasets could not be fetched",
   "buy_orders_could_not_be_fetched": "Buy Orders could not be fetched",
+  "buy_order_could_not_be_fetched": "Buy Order could not be fetched",
   "order_name": "Order name",
   "date_created": "Date created",
-  "budget": "Budget"
+  "budget": "Budget",
+  "order_budget": "Order budget",
+  "buy_order_details": "Buy Order Details",
+  "included_datasets": "Included datasets",
+  "edit_order": "Edit order",
+  "save_order": "Save order",
+  "delete_order": "Delete order"
 }

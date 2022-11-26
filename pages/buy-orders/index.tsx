@@ -5,12 +5,15 @@ import { IncludedCountries } from '@components/molecules/IncludedCountries';
 import { BuyOrderCardList } from '@components/organisms/BuyOrderCardList';
 import { useGetBuyOrders } from '@hooks/useGetBuyOrders';
 import { useCountries } from '@store/countries';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
+import { PageHeader } from '@components/atoms/PageHeader';
+import { ShowingResultsFrom } from '@components/molecules/ShowingResultsFrom';
+import { Container } from 'theme-ui';
 
-const BuyOrders: NextPage = () => {
+const BuyOrdersPage: NextPage = () => {
   const { selectedCountries } = useCountries();
-  const { buyOrders, isError, refetch } = useGetBuyOrders();
+  const { buyOrders, isError, refetch } = useGetBuyOrders(selectedCountries);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -27,13 +30,19 @@ const BuyOrders: NextPage = () => {
         <title>Buy Orders | Data Marketplace</title>
         <meta name="description" content="Buy orders description for SEO" />
       </Head>
-      <BuyOrderCardList buyOrders={buyOrders} />
+      <Container sx={{ marginBottom: '150px', width: '680px' }}>
+        <PageHeader title={t('buy_orders', 'Buy Orders')} />
+
+        <ShowingResultsFrom totalResults={buyOrders.length} />
+
+        <BuyOrderCardList buyOrders={buyOrders} />
+      </Container>
       <IncludedCountries />
     </>
   );
 };
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getStaticProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
@@ -41,4 +50,4 @@ export async function getStaticProps({ locale }: { locale: string }) {
   };
 }
 
-export default BuyOrders;
+export default BuyOrdersPage;

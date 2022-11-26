@@ -68,7 +68,7 @@ export const DatasetCard: FC<DatasetCardProps> = ({
         <Text>{availableRecords} {t('records', 'records')}</Text>
       </Flex>
       <Flex sx={{ flexDirection: 'column', gap: '5px' }}>
-        <FieldLabel>{t('included_countries', 'Included Countries')}</FieldLabel>
+        <FieldLabel>{t('included_countries', 'Included countries')}</FieldLabel>
         <Flex
           py={'5px'}
           sx={{ gap: '10px', flexWrap: 'wrap' }}

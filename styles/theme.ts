@@ -26,9 +26,8 @@ export const theme: Theme = {
     background: '#d9d9d9',
     headerBackground: '#333333',
     cardBackground: '#bdbdbd',
-    includedCountriesBackground: '#d9d9d9',
-    primary: '#07c',
-    secondary: '#30c',
+    primary: '#d9d9d9',
+    secondary: '#fff',
     muted: '#f6f6f6',
   },
   styles: {

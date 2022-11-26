@@ -4,26 +4,38 @@ import { FieldLabel } from '@components/atoms/FieldLabel';
 import { useTranslation } from 'next-i18next';
 import { theme } from '@styles/theme';
 import { format } from 'date-fns';
+import { useRouter } from 'next/router';
+import { ROUTES } from '@data/routes';
 
 type BuyOrderCardProps = {
+  id: number;
   orderName: string;
   dateCreated: Date;
   budget: number;
 }
 
 export const BuyOrderCard: FC<BuyOrderCardProps> = ({
+  id,
   orderName,
   dateCreated,
   budget,
 }) => {
   const { t } = useTranslation();
+  const { push } = useRouter();
+
   return (
     <Flex
       p={24}
       sx={{
         width: '100%',
         background: theme.colors?.cardBackground,
+        cursor: 'pointer',
+        ':hover': {
+          background: theme.colors?.muted,
+          transition: 'background-color 0.6s ease'
+        }
       }}
+      onClick={() => push(`${ROUTES.BUY_ORDERS}/${id}`)}
     >
       <Flex sx={{ gap: '5px', flexDirection: 'column', width: '33%' }}>
         <FieldLabel>{t('order_name', 'Order name')}</FieldLabel>

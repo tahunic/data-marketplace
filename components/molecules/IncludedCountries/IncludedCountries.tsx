@@ -16,7 +16,7 @@ export const IncludedCountries: FC = () => {
       sx={{
         position: 'fixed',
         justifyContent: 'center',
-        width: '100%',
+        left: '32%',
         bottom: '30px',
       }}
     >
@@ -25,7 +25,7 @@ export const IncludedCountries: FC = () => {
           gap: '10px',
           border: `2px solid ${theme.colors?.secondaryText}`,
           padding: '20px',
-          background: theme.colors?.includedCountriesBackground
+          background: theme.colors?.primary
         }}
       >
         {countries.map((country: CountryState) => (
@@ -39,7 +39,7 @@ export const IncludedCountries: FC = () => {
               ))
             }
             sx={{
-              background: country.selected ? theme.colors?.muted : theme.colors?.cardBackground,
+              background: country.selected ? theme.colors?.secondary : theme.colors?.cardBackground,
               opacity: country.selected ? 1 : 0.3,
               border: `2px solid ${theme.colors?.cardBackground}`,
               borderRadius: '50px',

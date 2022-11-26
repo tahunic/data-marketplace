@@ -5,12 +5,15 @@ import { DatasetCardList } from '@components/organisms/DatasetCardList';
 import { IncludedCountries } from '@components/molecules/IncludedCountries';
 import { useGetDatasets } from '@hooks/useGetDatasets';
 import { useCountries } from '@store/countries';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
+import { PageHeader } from '@components/atoms/PageHeader';
+import { ShowingResultsFrom } from '@components/molecules/ShowingResultsFrom';
+import { Container } from 'theme-ui';
 
-const Datasets: NextPage = () => {
+const DatasetsPage: NextPage = () => {
   const { selectedCountries } = useCountries();
-  const { datasets, isError, refetch } = useGetDatasets();
+  const { datasets, isError, refetch } = useGetDatasets(selectedCountries);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -27,15 +30,19 @@ const Datasets: NextPage = () => {
         <title>Datasets | Data Marketplace</title>
         <meta name="description" content="Datasets description for SEO" />
       </Head>
-      <DatasetCardList datasets={datasets} />
+      <Container sx={{ marginBottom: '150px' }}>
+        <PageHeader title={t('datasets', 'Datasets')} />
+
+        <ShowingResultsFrom totalResults={datasets.length} />
+
+        <DatasetCardList datasets={datasets} />
+      </Container>
       <IncludedCountries />
     </>
   );
-
-  return null;
 };
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
@@ -43,4 +50,4 @@ export async function getServerSideProps({ locale }: { locale: string }) {
   }
 }
 
-export default Datasets;
+export default DatasetsPage;
