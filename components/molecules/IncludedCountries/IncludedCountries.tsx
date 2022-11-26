@@ -5,29 +5,46 @@ import { CountryState, useCountries } from '@store/countries';
 import { theme } from '@styles/theme';
 
 export const IncludedCountries: FC = () => {
-  let { countries, setCountries } = useCountries();
+  const { countries, setCountries } = useCountries();
+
+  if (!countries) {
+    return null;
+  }
+
   return (
     <Flex
       sx={{
-        gap: '10px',
+        position: 'fixed',
+        justifyContent: 'center',
+        width: '100%',
+        bottom: '30px',
       }}
     >
-      {countries.map((country: CountryState) => (
-        <Pill
-          key={country.countryCode}
-          title={country.name}
-          onClick={() =>
-            setCountries(
+      <Flex
+        sx={{
+          gap: '10px',
+          border: `2px solid ${theme.colors?.secondaryText}`,
+          padding: '20px',
+          background: theme.colors?.includedCountriesBackground
+        }}
+      >
+        {countries.map((country: CountryState) => (
+          <Pill
+            key={country.countryCode}
+            title={country.name}
+            onClick={() => setCountries(
               countries.map((c: CountryState) => c.countryCode === country.countryCode
                 ? { ...c, selected: !c.selected }
                 : c
               ))
-          }
-          sx={{
-            background: country.selected ? theme.colors?.cardBackground : theme.colors?.muted
-          }}
-        />
-      ))}
+            }
+            sx={{
+              background: country.selected ? theme.colors?.muted : theme.colors?.cardBackground,
+              opacity: country.selected ? 1 : 0.3,
+            }}
+          />
+        ))}
+      </Flex>
     </Flex>
   );
 };

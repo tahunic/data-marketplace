@@ -1,17 +1,22 @@
 import React, { FC } from 'react';
 import { Flex, Text } from 'theme-ui';
 import { useTranslation } from 'next-i18next';
+import { useCountries } from '@store/countries';
+import { Country } from '@data/models/Country.model';
 
 type ShowingResultsFromProps = {
   totalResults: number;
-  includedCountries: string[];
 }
 
 export const ShowingResultsFrom: FC<ShowingResultsFromProps> = ({
   totalResults,
-  includedCountries
 }) => {
   const { t } = useTranslation();
+  const { selectedCountries } = useCountries();
+
+  if (totalResults === 0 && selectedCountries?.length === 0) {
+    return null;
+  }
 
   return (
     <Flex
@@ -23,7 +28,7 @@ export const ShowingResultsFrom: FC<ShowingResultsFromProps> = ({
       <Text>{t('showing', 'Showing')}{' '}</Text>
       <Text sx={{ fontWeight: '700' }}>{totalResults}{' '}</Text>
       <Text>{t('results_from', 'results from')}{' '}</Text>
-      <Text sx={{ fontWeight: '700' }}>{includedCountries.join(', ')}</Text>
+      <Text sx={{ fontWeight: '700' }}>{selectedCountries.map((c: Country) => c.name).join(', ')}</Text>
     </Flex>
   );
 };

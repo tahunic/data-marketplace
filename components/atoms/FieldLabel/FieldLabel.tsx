@@ -6,7 +6,7 @@ type FieldLabelProps = TextProps & {
   children: ReactNode;
 }
 
-const FieldLabel: FC<FieldLabelProps> = ({
+export const FieldLabel: FC<FieldLabelProps> = ({
   children,
   ...props
 }) => {
@@ -23,5 +23,3 @@ const FieldLabel: FC<FieldLabelProps> = ({
     </Text>
   );
 };
-
-export default FieldLabel;

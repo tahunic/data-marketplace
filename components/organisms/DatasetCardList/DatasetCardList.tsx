@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import { Dataset } from '@data/models/Dataset.model';
 import { DatasetCard } from '@components/molecules/DatasetCard';
 import { ShowingResultsFrom } from '@components/molecules/ShowingResultsFrom';
+import { Country } from '@data/models/Country.model';
 
 type DatasetCardListProps = {
   datasets: Dataset[];
@@ -33,7 +34,6 @@ export const DatasetCardList: FC<DatasetCardListProps> = ({
 
         <ShowingResultsFrom
           totalResults={datasets.length}
-          includedCountries={['United States', 'Canada']}
         />
 
         <Flex
@@ -50,8 +50,8 @@ export const DatasetCardList: FC<DatasetCardListProps> = ({
               thumbnailAlt={dataset.name}
               description={dataset.description}
               pricePerRecord={dataset.costPerRecord}
-              availableRecords={4500}
-              countries={['United States', 'Canada']}
+              availableRecords={dataset.availableRecords}
+              countries={dataset.includedCountries?.map((c: Country) => c.name)}
             />
           ))}
         </Flex>

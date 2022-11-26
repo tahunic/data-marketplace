@@ -6,5 +6,8 @@
   "available_records": "Available Records",
   "showing": "Showing",
   "results_from": "results from",
-  "included_countries": "Included Countries"
+  "included_countries": "Included Countries",
+  "records": "records",
+  "countries_could_not_be_fetched": "Countries could not be fetched",
+  "datasets_could_not_be_fetched": "Datasets could not be fetched"
 }

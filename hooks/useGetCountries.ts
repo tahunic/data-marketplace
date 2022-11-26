@@ -3,6 +3,7 @@ import { serviceRequest } from '@utils/http/requests';
 import { Country } from '@data/models/Country.model';
 import { getBaseUrl } from '@utils/constants';
 import axios from 'axios';
+import { API_ROUTES } from '@data/routes';
 
 export const GET_COUNTRIES_KEY = '@countries/get';
 
@@ -19,7 +20,7 @@ export function useGetCountries(): {
     isError,
     refetch,
   } = ReactQuery.useQuery([GET_COUNTRIES_KEY], () => serviceRequest(
-    () => axios.get(`${getBaseUrl()}/countries`).then((res) => res.data),
+    () => axios.get(`${getBaseUrl()}/${API_ROUTES.COUNTRIES}`).then((res) => res.data),
   ));
 
   return {

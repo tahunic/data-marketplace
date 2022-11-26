@@ -2,17 +2,17 @@ import React, { FC } from 'react';
 import { Box, Flex, Text } from 'theme-ui';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
-import FieldLabel from '@components/atoms/FieldLabel/FieldLabel';
 import { theme } from '@styles/theme';
 import Pill from '@components/atoms/Pill/Pill';
+import { FieldLabel } from '@components/atoms/FieldLabel';
 
-interface DatasetCardProps {
+type DatasetCardProps = {
   title: string;
   thumbnailSrc: string;
   thumbnailAlt: string;
   description: string;
   pricePerRecord: number;
-  availableRecords: number;
+  availableRecords?: number;
   countries: string[];
 }
 
@@ -65,15 +65,15 @@ export const DatasetCard: FC<DatasetCardProps> = ({
         sx={{ justifyContent: 'space-between' }}
       >
         <FieldLabel>{t('available_records', 'Available Records')}</FieldLabel>
-        <Text>${availableRecords}</Text>
+        <Text>{availableRecords} {t('records', 'records')}</Text>
       </Flex>
       <Flex sx={{ flexDirection: 'column', gap: '5px' }}>
         <FieldLabel>{t('included_countries', 'Included Countries')}</FieldLabel>
         <Flex
           py={'5px'}
-          sx={{ gap: '10px' }}
+          sx={{ gap: '10px', flexWrap: 'wrap' }}
         >
-          {countries.map(country => <Pill key={title} title={country} />)}
+          {countries.map((country: string) => <Pill key={country} title={country} />)}
         </Flex>
       </Flex>
     </Box>
