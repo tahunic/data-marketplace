@@ -4,5 +4,5 @@ export interface Dataset {
   label: string;
   thumbnailUrl: string;
   description: string;
-  pricePerRecord: number;
+  costPerRecord: number;
 }

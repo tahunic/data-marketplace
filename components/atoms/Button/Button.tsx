@@ -3,7 +3,7 @@ import * as ThemeUI from 'theme-ui';
 import { Spinner } from 'theme-ui';
 import { theme } from '@styles/theme';
 
-type ButtonProps = ThemeUI.ButtonProps & {
+export type ButtonProps = ThemeUI.ButtonProps & {
   loading?: boolean;
 }
 

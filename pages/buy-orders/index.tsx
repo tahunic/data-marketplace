@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { Header } from '@components/molecules/Header';
 import { Box, Container, Text } from 'theme-ui';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { IncludedCountries } from '@components/molecules/IncludedCountries';
 
 const BuyOrders: NextPage = () => {
   let { t } = useTranslation();
@@ -27,6 +28,7 @@ const BuyOrders: NextPage = () => {
           </Text>
         </Box>
       </Container>
+      <IncludedCountries />
     </>
   );
 };

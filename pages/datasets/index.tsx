@@ -5,14 +5,25 @@ import { Header } from '@components/molecules/Header';
 import { Dataset } from '@data/models/Dataset.model';
 import getConfig from 'next/config';
 import { DatasetCardList } from '@components/organisms/DatasetCardList';
+import { IncludedCountries } from '@components/molecules/IncludedCountries';
+import { useCountries } from '@store/countries';
+import { useEffect } from 'react';
+import { Country } from '@data/models/Country.model';
 
 type DatasetsProps = {
   datasets: Dataset[];
+  countries: Country[];
 }
 
 const Datasets: NextPage<DatasetsProps> = ({
   datasets,
+  countries,
 }) => {
+  const { setCountries } = useCountries();
+  useEffect(() => {
+    setCountries(countries.map((country: Country) => ({ ...country, selected: true })));
+  }, [countries, setCountries]);
+
   return (
     <>
       <Head>
@@ -21,14 +32,14 @@ const Datasets: NextPage<DatasetsProps> = ({
       </Head>
       <Header />
       <DatasetCardList datasets={datasets} />
+      <IncludedCountries />
     </>
   );
 };
 
 export async function getServerSideProps({ locale }: { locale: string }) {
   const { publicRuntimeConfig } = getConfig();
-  const res = await fetch(`${publicRuntimeConfig.nextPublicApiBaseUri}/datasets`);
-  const datasets = await res.json();
+  const datasets = await fetch(`${publicRuntimeConfig.nextPublicApiBaseUri}/datasets`).then(res => res.json());
 
   return {
     props: {

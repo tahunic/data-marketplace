@@ -45,7 +45,7 @@ export const DatasetCardList: FC<DatasetCardListProps> = ({
               thumbnailSrc={dataset.thumbnailUrl}
               thumbnailAlt={dataset.name}
               description={dataset.description}
-              pricePerRecord={dataset.pricePerRecord}
+              pricePerRecord={dataset.costPerRecord}
               availableRecords={4500}
               countries={['United States', 'Canada']}
             />
