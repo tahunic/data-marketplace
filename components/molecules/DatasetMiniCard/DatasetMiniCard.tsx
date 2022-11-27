@@ -24,7 +24,7 @@ export const DatasetMiniCard: FC<DatasetMiniCardProps> = ({
   disabled,
   onClick,
 }) => {
-  let { t } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Flex

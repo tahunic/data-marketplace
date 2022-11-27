@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { Flex } from '@components/atoms/Flex';
 
 export const Header: FC = () => {
-  let { t } = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
 
   return (

@@ -1,6 +1,6 @@
 import getConfig from 'next/config';
 
 export const getBaseUrl = () => {
-  let { publicRuntimeConfig } = getConfig();
+  const { publicRuntimeConfig } = getConfig();
   return publicRuntimeConfig.nextPublicApiBaseUri
 }

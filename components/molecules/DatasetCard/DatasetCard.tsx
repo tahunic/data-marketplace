@@ -26,7 +26,7 @@ export const DatasetCard: FC<DatasetCardProps> = ({
   availableRecords,
   countries,
 }) => {
-  let { t } = useTranslation();
+  const { t } = useTranslation();
   return (
     <Box
       p={24}
