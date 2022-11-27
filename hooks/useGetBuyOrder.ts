@@ -25,8 +25,6 @@ export function useGetBuyOrder(buyOrderId: string): {
           isError: false,
         }
       }
-    }, {
-      refetchOnMount: true,
     }
   );
 

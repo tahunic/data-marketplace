@@ -5,12 +5,15 @@ import { API_ROUTES, ROUTES } from '@data/routes';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
+import { useQueryClient } from 'react-query';
 
 export const DELETE_BUY_ORDER_KEY = '@buy-order/delete';
 
 export function useDeleteBuyOrder() {
   const { push } = useRouter();
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
   const {
     mutate,
   } = ReactQuery.useMutation([DELETE_BUY_ORDER_KEY], ({ id }: { id: string }) =>
@@ -19,9 +22,10 @@ export function useDeleteBuyOrder() {
       onError: () => {
         toast.error(t('delete_order_error', 'Could not delete the order'))
       },
-      onSuccess: () => {
+      onSuccess: (data, variables) => {
         push(ROUTES.BUY_ORDERS);
         toast.success(t('delete_order_success', 'Buy order has been deleted'));
+        queryClient.clear();
       },
     }
   );
