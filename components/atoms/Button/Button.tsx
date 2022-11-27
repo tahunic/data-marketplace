@@ -27,6 +27,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       alignItems: 'center',
       justifyContent: 'center',
       cursor: disabled || loading ? 'not-allowed' : 'pointer',
+      color: theme.colors?.secondaryText,
       ...sx,
     }}
     disabled={disabled || loading}

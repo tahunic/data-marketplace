@@ -10,6 +10,8 @@ import { useGetDatasets } from '@hooks/useGetDatasets';
 import { Container } from 'theme-ui';
 import { PageHeader } from '@components/atoms/PageHeader';
 import { useCountries } from '@store/countries';
+import { usePutBuyOrder } from '@hooks/usePutBuyOrder';
+import { BuyOrder } from '@data/models/BuyOrder.model';
 
 type BuyOrderDetailsProps = {
   buyOrderId: number;
@@ -18,16 +20,29 @@ type BuyOrderDetailsProps = {
 const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
   buyOrderId,
 }) => {
+  const { t } = useTranslation();
   const { countries } = useCountries();
   const { buyOrder, isLoading, isError } = useGetBuyOrder(buyOrderId);
-  const { datasets } = useGetDatasets(countries);
-  const { t } = useTranslation();
+  const { putBuyOrder } = usePutBuyOrder();
+  const { datasets, isLoading: isDatasetsLoading, isError: isDatasetsError } = useGetDatasets(countries);
 
-  if (isLoading) {
+  function onSubmit(form): void {
+    const { id, name, budget, createdAt, datasets, countries } = form;
+    const payload = {
+      name,
+      budget,
+      createdAt,
+      datasetIds: datasets.filter(c => c.selected).map(d => d.id),
+      countries: countries.filter(c => c.selected).map(c => c.countryCode),
+    } as BuyOrder;
+    putBuyOrder({ id, payload });
+  }
+
+  if (isLoading || isDatasetsLoading) {
     return <Loader />;
   }
 
-  if (isError) {
+  if (isError || isDatasetsError) {
     return <h3>{t('buy_order_could_not_be_fetched', 'Buy Order could not be fetched')}</h3>
   }
 
@@ -42,13 +57,19 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
           <PageHeader title={t('buy_order_details', 'Buy Order Details')} />
 
           <BuyOrderDetails
+            id={buyOrder.id}
             orderName={buyOrder.name}
             dateCreated={buyOrder.createdAt}
             budget={buyOrder.budget}
-            datasets={datasets}
-            countries={countries}
-            includedDatasetIds={buyOrder.datasetIds}
-            includedCountryIds={buyOrder.countries}
+            datasets={datasets.map(dataset => ({
+              ...dataset,
+              selected: buyOrder.datasetIds?.includes(dataset.id),
+            }))}
+            countries={countries.map(country => ({
+              ...country,
+              selected: buyOrder.countries?.includes(country.countryCode),
+            }))}
+            onSubmit={onSubmit}
           />
         </Container>
       </>

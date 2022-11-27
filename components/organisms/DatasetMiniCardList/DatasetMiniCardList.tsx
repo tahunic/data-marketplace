@@ -1,15 +1,18 @@
 import React, { FC } from 'react';
-import { Dataset } from '@data/models/Dataset.model';
+import { DatasetSelectable } from '@data/models/Dataset.model';
 import { Flex } from 'theme-ui';
 import { DatasetMiniCard } from '@components/molecules/DatasetMiniCard';
-import { theme } from '@styles/theme';
 
 type DatasetMiniCardListProps = {
-  datasets?: Dataset[];
+  datasets?: DatasetSelectable[];
+  onSelect?: (dataset) => void;
+  readonly?: boolean;
 }
 
 export const DatasetMiniCardList: FC<DatasetMiniCardListProps> = ({
   datasets,
+  onSelect,
+  readonly = false,
 }) => {
   return (
     <Flex
@@ -25,6 +28,9 @@ export const DatasetMiniCardList: FC<DatasetMiniCardListProps> = ({
           thumbnailSrc={dataset.thumbnailUrl}
           thumbnailAlt={dataset.name}
           pricePerRecord={dataset.costPerRecord}
+          selected={dataset.selected}
+          disabled={dataset.disabled}
+          onClick={() => !readonly && onSelect && onSelect(dataset)}
         />
       )}
     </Flex>

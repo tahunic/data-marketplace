@@ -1,48 +1,46 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Flex, Text } from 'theme-ui';
-import { Dataset } from '@data/models/Dataset.model';
-import { Country } from '@data/models/Country.model';
+import { DatasetSelectable } from '@data/models/Dataset.model';
 import { FieldLabel } from '@components/atoms/FieldLabel';
 import { useTranslation } from 'next-i18next';
 import { format } from 'date-fns';
 import { theme } from '@styles/theme';
 import { Button } from '@components/atoms/Button';
 import { DatasetMiniCardList } from '@components/organisms/DatasetMiniCardList';
-import { IncludedCountries } from '@components/molecules/IncludedCountries';
-import { CountryState } from '@store/countries';
+import { EditableText } from '@components/molecules/EditableText';
+import { CountryControl } from '@components/molecules/CountryControl';
+import { CountrySelectable } from '@store/countries';
+import { getAvailableRecords } from '@services/dataset.service';
 
 type BuyOrderDetailsProps = {
+  id: number;
   orderName: string;
   dateCreated: Date;
   budget: number;
-  datasets: Dataset[];
-  includedDatasetIds: number[];
-  countries: Country[];
-  includedCountryIds: string[];
+  datasets: DatasetSelectable[];
+  countries: CountrySelectable[];
+  onSubmit?: (form) => void;
 }
 
 export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
+  id,
   orderName,
   dateCreated,
   budget,
   datasets,
-  includedDatasetIds,
   countries,
-  includedCountryIds,
+  onSubmit,
 }) => {
   const { t } = useTranslation();
-
-  function includedCountries(): CountryState[] {
-    return includedCountryIds
-      ?.map(countryCode => countries?.find(country => country.countryCode === countryCode))
-      ?.filter(country => country !== undefined) as CountryState[];
-  }
-
-  function includedDatasets(): Dataset[] {
-    return includedDatasetIds
-      ?.map(datasetId => datasets?.find(dataset => dataset.id === datasetId))
-      ?.filter(dataset => dataset !== undefined) as Dataset[];
-  }
+  const [editMode, setEditMode] = useState(false);
+  const [form, setForm] = useState({
+    id: id,
+    name: orderName,
+    budget,
+    createdAt: dateCreated,
+    datasets,
+    countries,
+  });
 
   return (
     <Flex
@@ -54,38 +52,91 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
         marginBottom: '50px',
       }}
     >
-      <Flex>
-        <Flex sx={{ gap: '5px', flexDirection: 'column', width: '50%' }}>
-          <FieldLabel>{t('order_name', 'Order name')}</FieldLabel>
-          <Text>{orderName}</Text>
+      <Flex sx={{ gap: '15px' }}>
+        <Flex sx={{ gap: '5px', flexDirection: 'column', width: '45%' }}>
+          <EditableText
+            type="text"
+            label={t('order_name', 'Order name')}
+            editMode={editMode}
+            defaultValue={orderName}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            invalid={form.name?.length === 0}
+          />
         </Flex>
-        <Flex sx={{ gap: '5px', flexDirection: 'column', width: '50%' }}>
+        <Flex
+          sx={{
+            gap: '5px',
+            flexDirection: 'column',
+            width: '45%',
+            opacity: editMode ? 0.3 : 1
+          }}
+        >
           <FieldLabel>{t('date_created', 'Date Created')}</FieldLabel>
           <Text>{format(new Date(dateCreated), 'MM/dd/yyyy')}</Text>
         </Flex>
       </Flex>
 
       <Flex sx={{ gap: '5px', flexDirection: 'column' }}>
-        <FieldLabel>{t('order_budget', 'Order budget')}</FieldLabel>
-        <Text>${budget}</Text>
+        <EditableText
+          type="number"
+          label={t('order_budget', 'Order budget')}
+          editMode={editMode}
+          defaultValue={budget}
+          onChange={(e) => setForm({ ...form, budget: Number(e.target.value) })}
+          invalid={!form.budget}
+        />
       </Flex>
 
       <Flex sx={{ gap: '5px', flexDirection: 'column' }}>
         <FieldLabel>{t('included_datasets', 'Included datasets')}</FieldLabel>
-        <DatasetMiniCardList datasets={includedDatasets()} />
+        <DatasetMiniCardList
+          datasets={form.datasets.filter(dataset => editMode ? true : dataset.selected)}
+          onSelect={(dataset) => setForm({
+            ...form,
+            datasets: form.datasets.map(d => d.id === dataset.id ? { ...d, selected: !d.selected } : d)
+          })}
+          readonly={!editMode}
+        />
       </Flex>
 
       <Flex sx={{ gap: '5px', flexDirection: 'column' }}>
         <FieldLabel>{t('included_countries', 'Included countries')}</FieldLabel>
         <Flex sx={{ gap: '5px', flexDirection: 'row' }}>
-          <IncludedCountries countries={includedCountries()} />
+          <CountryControl
+            countries={form.countries}
+            onSetCountries={(country) => {
+              const updatedCountries = form.countries
+                .map(c => c.countryCode === country.countryCode ? { ...c, selected: !c.selected } : c);
+              setForm({
+                ...form,
+                countries: updatedCountries,
+                datasets: form.datasets.map(d => ({
+                  ...d,
+                  disabled: getAvailableRecords(d, updatedCountries.filter(c => c.selected)) === 0,
+                  selected: d.selected && getAvailableRecords(d, updatedCountries.filter(c => c.selected)) > 0,
+                }))
+              });
+            }}
+            readonly={!editMode}
+          />
         </Flex>
       </Flex>
 
-      <Flex sx={{ gap: '5px', justifyContent: 'flex-end' }}>
-        <Button variant="secondary">{t('edit_order', 'Edit order')}</Button>
-        <Button>{t('delete_order', 'Delete order')}</Button>
-      </Flex>
+      {editMode ?
+        <Flex sx={{ justifyContent: 'center' }}>
+          <Button type="submit" onClick={() => onSubmit && onSubmit(form)}>
+            {t('save', 'Save')}
+          </Button>
+        </Flex> :
+        <Flex sx={{ gap: '5px', justifyContent: 'flex-end' }}>
+          <Button type="button" onClick={() => setEditMode(true)}>
+            {t('edit_order', 'Edit order')}
+          </Button>
+          <Button type="button" onClick={() => alert('Delete?')}>
+            {t('delete_order', 'Delete order')}
+          </Button>
+        </Flex>
+      }
     </Flex>
   );
 };

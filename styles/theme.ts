@@ -29,6 +29,7 @@ export const theme: Theme = {
     primary: '#d9d9d9',
     secondary: '#fff',
     muted: '#f6f6f6',
+    green: '#90EE90',
   },
   styles: {
     root: {

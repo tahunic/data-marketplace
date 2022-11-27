@@ -20,6 +20,7 @@
       "@components/*": ["./components/*"],
       "@data/*": ["./data/*"],
       "@hooks/*": ["./hooks/*"],
+      "@services/*": ["./services/*"],
       "@store/*": ["./store/*"],
       "@styles/*": ["./styles/*"],
       "@utils/*": ["./utils/*"]

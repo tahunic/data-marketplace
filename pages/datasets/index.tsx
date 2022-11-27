@@ -2,9 +2,9 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { DatasetCardList } from '@components/organisms/DatasetCardList';
-import { FloatingIncludedCountries } from '@components/organisms/FloatingIncludedCountries';
+import { FloatingCountryControl } from '@components/organisms/FloatingCountryControl';
 import { useGetDatasets } from '@hooks/useGetDatasets';
-import { CountryState, useCountries } from '@store/countries';
+import { CountrySelectable, useCountries } from '@store/countries';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
 import { PageHeader } from '@components/atoms/PageHeader';
@@ -24,9 +24,9 @@ const DatasetsPage: NextPage = () => {
     return <h3>{t('datasets_could_not_be_fetched', 'Datasets could not be fetched')}</h3>
   }
 
-  function onSetCountries(country: CountryState) {
+  function onSetCountries(country: CountrySelectable) {
     setCountries(
-      countries.map((c: CountryState) => c.countryCode === country.countryCode
+      countries.map((c: CountrySelectable) => c.countryCode === country.countryCode
         ? { ...c, selected: !c.selected }
         : c
       ))
@@ -45,7 +45,7 @@ const DatasetsPage: NextPage = () => {
 
         <DatasetCardList datasets={datasets} />
       </Container>
-      <FloatingIncludedCountries
+      <FloatingCountryControl
         countries={countries}
         onSetCountries={onSetCountries}
       />

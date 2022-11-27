@@ -2,20 +2,20 @@ import React from 'react';
 import { createStoreProvider } from '@utils/context/createStoreProvider';
 import { Country } from '@data/models/Country.model';
 
-export type CountryState = Country & {
+export type CountrySelectable = Country & {
   selected: boolean;
 }
 
 function useCountriesState(): {
-  countries: CountryState[],
-  selectedCountries: CountryState[];
-  setCountries: (countries: CountryState[]) => void,
+  countries: CountrySelectable[],
+  selectedCountries: CountrySelectable[];
+  setCountries: (countries: CountrySelectable[]) => void,
 } {
-  const [countries, setCountries] = React.useState<CountryState[]>([]);
+  const [countries, setCountries] = React.useState<CountrySelectable[]>([]);
 
   return {
     countries,
-    selectedCountries: countries.filter((country: CountryState) => country.selected),
+    selectedCountries: countries.filter((country: CountrySelectable) => country.selected),
     setCountries,
   };
 }

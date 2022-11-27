@@ -10,3 +10,8 @@ export type Dataset = {
   availableRecords?: number;
   includedCountries: Country[];
 }
+
+export type DatasetSelectable = Dataset & {
+  selected?: boolean;
+  disabled?: boolean;
+}

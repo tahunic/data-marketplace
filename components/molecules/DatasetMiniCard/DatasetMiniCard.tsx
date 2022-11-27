@@ -9,6 +9,9 @@ type DatasetMiniCardProps = {
   thumbnailSrc: string;
   thumbnailAlt: string;
   pricePerRecord: number;
+  selected?: boolean;
+  disabled?: boolean;
+  onClick: () => void;
 }
 
 export const DatasetMiniCard: FC<DatasetMiniCardProps> = ({
@@ -16,6 +19,9 @@ export const DatasetMiniCard: FC<DatasetMiniCardProps> = ({
   thumbnailSrc,
   thumbnailAlt,
   pricePerRecord,
+  selected,
+  disabled,
+  onClick,
 }) => {
   let { t } = useTranslation();
 
@@ -24,10 +30,13 @@ export const DatasetMiniCard: FC<DatasetMiniCardProps> = ({
       p={'10px'}
       sx={{
         gap: '5px',
-        background: theme.colors?.background,
+        background: selected ? theme.colors?.green : theme.colors?.background,
         border: `2px solid ${theme.colors?.text}`,
         width: '49%',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.3 : 1,
       }}
+      onClick={() => !disabled && onClick()}
     >
       <Image
         src={thumbnailSrc}

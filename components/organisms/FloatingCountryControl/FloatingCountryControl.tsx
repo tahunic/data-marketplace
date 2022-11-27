@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Flex } from 'theme-ui';
-import { IncludedCountries, IncludedCountriesProps } from '@components/molecules/IncludedCountries/IncludedCountries';
+import { CountryControl, CountryControlProps } from '@components/molecules/CountryControl';
 import { theme } from '@styles/theme';
 
-export const FloatingIncludedCountries: FC<IncludedCountriesProps> = ({
+export const FloatingCountryControl: FC<CountryControlProps> = ({
   countries,
   onSetCountries,
 }) => {
@@ -28,7 +28,7 @@ export const FloatingIncludedCountries: FC<IncludedCountriesProps> = ({
           background: theme.colors?.primary
         }}
       >
-        <IncludedCountries
+        <CountryControl
           countries={countries}
           onSetCountries={onSetCountries}
         />
