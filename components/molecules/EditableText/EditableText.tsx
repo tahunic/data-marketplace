@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, InputProps, Text } from 'theme-ui';
+import { Flex, Input, InputProps, Text } from 'theme-ui';
 import { FieldLabel } from '@components/atoms/FieldLabel';
 
 type EditableFieldProps = InputProps & {
@@ -7,6 +7,7 @@ type EditableFieldProps = InputProps & {
   label: string;
   defaultValue?: string | number;
   invalid?: boolean;
+  readonly?: boolean;
 }
 
 export const EditableText = React.forwardRef<HTMLInputElement, EditableFieldProps>(({
@@ -15,12 +16,20 @@ export const EditableText = React.forwardRef<HTMLInputElement, EditableFieldProp
   name,
   defaultValue,
   invalid,
+  readonly,
   ...props
 }, ref) => {
   return (
-    <>
+    <Flex
+      sx={{
+        gap: '5px',
+        flexDirection: 'column',
+        opacity: readonly ? 0.3 : 1,
+        width: '45%',
+    }}
+    >
       <FieldLabel>{label}</FieldLabel>
-      {editMode ?
+      {editMode && !readonly ?
         <Input
           ref={ref}
           defaultValue={defaultValue}
@@ -30,7 +39,7 @@ export const EditableText = React.forwardRef<HTMLInputElement, EditableFieldProp
           {...props}
         /> :
         <Text>{defaultValue}</Text>}
-    </>
+    </Flex>
   );
 });
 

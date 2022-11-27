@@ -29,16 +29,15 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
   const { datasets, isLoading: isDatasetsLoading, isError: isDatasetsError } = useGetDatasets(countries);
 
   function onSubmit(form): void {
-    const { id, name, budget, createdAt, datasets, countries } = form;
     const payload = {
-      name,
-      budget,
-      createdAt,
-      datasetIds: datasets.filter(c => c.selected).map(d => d.id),
-      countries: countries.filter(c => c.selected).map(c => c.countryCode),
+      ...form,
+      datasets: null,
+      datasetIds: form.datasets.filter(c => c.selected).map(d => d.id),
+      countries: form.countries.filter(c => c.selected).map(c => c.countryCode),
     } as BuyOrder;
-    if (id) {
-      putBuyOrder({ id, payload });
+
+    if (form.id) {
+      putBuyOrder({ id: form.id, payload });
     } else {
       postBuyOrder({ payload });
     }
@@ -68,7 +67,7 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
           budget={buyOrder?.budget}
           datasets={datasets.map(dataset => ({
             ...dataset,
-            selected: buyOrder?.datasetIds?.includes(dataset.id) ?? false,
+            selected: buyOrder?.datasetIds?.includes(dataset.id),
             disabled: !dataset.includedCountries?.some(country => buyOrder?.countries?.includes(country.countryCode))
           }))}
           countries={countries.map(country => ({

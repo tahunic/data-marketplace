@@ -53,39 +53,31 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
       }}
     >
       <Flex sx={{ gap: '15px' }}>
-        <Flex sx={{ gap: '5px', flexDirection: 'column', width: '45%' }}>
-          <EditableText
-            type="text"
-            label={t('order_name', 'Order name')}
-            editMode={editMode}
-            defaultValue={orderName}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            invalid={form.name?.length === 0}
-          />
-        </Flex>
-        <Flex
-          sx={{
-            gap: '5px',
-            flexDirection: 'column',
-            width: '45%',
-            opacity: editMode ? 0.3 : 1
-          }}
-        >
-          <FieldLabel>{t('date_created', 'Date Created')}</FieldLabel>
-          <Text>{format(new Date(dateCreated), 'MM/dd/yyyy')}</Text>
-        </Flex>
-      </Flex>
-
-      <Flex sx={{ gap: '5px', flexDirection: 'column' }}>
         <EditableText
-          type="number"
-          label={t('order_budget', 'Order budget')}
+          type="text"
+          label={t('order_name', 'Order name')}
           editMode={editMode}
-          defaultValue={budget}
-          onChange={(e) => setForm({ ...form, budget: Number(e.target.value) })}
-          invalid={!form.budget}
+          defaultValue={orderName}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+          invalid={form.name?.length === 0}
+        />
+        <EditableText
+          editMode={editMode}
+          label={t('date_created', 'Date Created')}
+          defaultValue={format(new Date(dateCreated), 'MM/dd/yyyy')}
+          readonly
         />
       </Flex>
+
+
+      <EditableText
+        type="number"
+        label={t('order_budget', 'Order budget')}
+        editMode={editMode}
+        defaultValue={budget}
+        onChange={(e) => setForm({ ...form, budget: Number(e.target.value) })}
+        invalid={!form.budget}
+      />
 
       <Flex sx={{ gap: '5px', flexDirection: 'column' }}>
         <FieldLabel>{t('included_datasets', 'Included datasets')}</FieldLabel>
