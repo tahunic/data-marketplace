@@ -12,9 +12,10 @@ import { PageHeader } from '@components/atoms/PageHeader';
 import { useCountries } from '@store/countries';
 import { usePutBuyOrder } from '@hooks/usePutBuyOrder';
 import { BuyOrder } from '@data/models/BuyOrder.model';
+import { usePostBuyOrder } from '@hooks/usePostBuyOrder';
 
 type BuyOrderDetailsProps = {
-  buyOrderId: number;
+  buyOrderId: string;
 }
 
 const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
@@ -24,6 +25,7 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
   const { countries } = useCountries();
   const { buyOrder, isLoading, isError } = useGetBuyOrder(buyOrderId);
   const { putBuyOrder } = usePutBuyOrder();
+  const { postBuyOrder } = usePostBuyOrder();
   const { datasets, isLoading: isDatasetsLoading, isError: isDatasetsError } = useGetDatasets(countries);
 
   function onSubmit(form): void {
@@ -35,7 +37,11 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
       datasetIds: datasets.filter(c => c.selected).map(d => d.id),
       countries: countries.filter(c => c.selected).map(c => c.countryCode),
     } as BuyOrder;
-    putBuyOrder({ id, payload });
+    if (id) {
+      putBuyOrder({ id, payload });
+    } else {
+      postBuyOrder({ payload });
+    }
   }
 
   if (isLoading || isDatasetsLoading) {
@@ -46,35 +52,34 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
     return <h3>{t('buy_order_could_not_be_fetched', 'Buy Order could not be fetched')}</h3>
   }
 
-  if (buyOrder) {
-    return (
-      <>
-        <Head>
-          <title>Buy Order Details | Data Marketplace</title>
-          <meta name="description" content="Buy Order description for SEO" />
-        </Head>
-        <Container sx={{ width: '680px' }}>
-          <PageHeader title={t('buy_order_details', 'Buy Order Details')} />
+  return (
+    <>
+      <Head>
+        <title>Buy Order Details | Data Marketplace</title>
+        <meta name="description" content="Buy Order description for SEO" />
+      </Head>
+      <Container sx={{ width: '680px' }}>
+        <PageHeader title={t('buy_order_details', 'Buy Order Details')} />
 
-          <BuyOrderDetails
-            id={buyOrder.id}
-            orderName={buyOrder.name}
-            dateCreated={buyOrder.createdAt}
-            budget={buyOrder.budget}
-            datasets={datasets.map(dataset => ({
-              ...dataset,
-              selected: buyOrder.datasetIds?.includes(dataset.id),
-            }))}
-            countries={countries.map(country => ({
-              ...country,
-              selected: buyOrder.countries?.includes(country.countryCode),
-            }))}
-            onSubmit={onSubmit}
-          />
-        </Container>
-      </>
-    );
-  }
+        <BuyOrderDetails
+          id={buyOrder?.id}
+          orderName={buyOrder?.name ?? ''}
+          dateCreated={buyOrder?.createdAt ?? new Date()}
+          budget={buyOrder?.budget}
+          datasets={datasets.map(dataset => ({
+            ...dataset,
+            selected: buyOrder?.datasetIds?.includes(dataset.id) ?? false,
+            disabled: !dataset.includedCountries?.some(country => buyOrder?.countries.includes(country.countryCode))
+          }))}
+          countries={countries.map(country => ({
+            ...country,
+            selected: buyOrder?.id ? buyOrder?.countries?.includes(country.countryCode) : true,
+          }))}
+          onSubmit={onSubmit}
+        />
+      </Container>
+    </>
+  );
 
   return null;
 };

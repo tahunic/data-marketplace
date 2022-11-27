@@ -13,10 +13,10 @@ import { CountrySelectable } from '@store/countries';
 import { getAvailableRecords } from '@services/dataset.service';
 
 type BuyOrderDetailsProps = {
-  id: number;
+  id?: number;
   orderName: string;
   dateCreated: Date;
-  budget: number;
+  budget?: number;
   datasets: DatasetSelectable[];
   countries: CountrySelectable[];
   onSubmit?: (form) => void;
@@ -32,7 +32,7 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
   onSubmit,
 }) => {
   const { t } = useTranslation();
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(!id);
   const [form, setForm] = useState({
     id: id,
     name: orderName,
