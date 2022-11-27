@@ -10,11 +10,15 @@ import { PageHeader } from '@components/atoms/PageHeader';
 import { ShowingResultsFrom } from '@components/molecules/ShowingResultsFrom';
 import { Container } from 'theme-ui';
 import { FloatingCountryControl } from '@components/organisms/FloatingCountryControl';
+import { Button } from '@components/atoms/Button';
+import { useRouter } from 'next/router';
+import { ROUTES } from '@data/routes';
 
 const BuyOrdersPage: NextPage = () => {
   const { countries, selectedCountries, setCountries } = useCountries();
   const { buyOrders, isError, refetch } = useGetBuyOrders(selectedCountries);
   const { t } = useTranslation();
+  const { push } = useRouter();
 
   useEffect(() => {
     refetch();
@@ -40,6 +44,10 @@ const BuyOrdersPage: NextPage = () => {
       </Head>
       <Container sx={{ marginBottom: '150px', width: '680px' }}>
         <PageHeader title={t('buy_orders', 'Buy Orders')} />
+
+        <Button px={0} sx={{ textDecoration: 'underline' }} onClick={() => push(`${ROUTES.BUY_ORDERS}/-1`)}>
+          {t('add', 'Add')}
+        </Button>
 
         <ShowingResultsFrom totalResults={buyOrders.length} />
 

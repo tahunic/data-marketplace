@@ -69,7 +69,7 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
           datasets={datasets.map(dataset => ({
             ...dataset,
             selected: buyOrder?.datasetIds?.includes(dataset.id) ?? false,
-            disabled: !dataset.includedCountries?.some(country => buyOrder?.countries.includes(country.countryCode))
+            disabled: !dataset.includedCountries?.some(country => buyOrder?.countries?.includes(country.countryCode))
           }))}
           countries={countries.map(country => ({
             ...country,
@@ -80,8 +80,6 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
       </Container>
     </>
   );
-
-  return null;
 };
 
 export async function getServerSideProps({ locale, query }) {

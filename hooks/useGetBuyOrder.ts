@@ -15,17 +15,18 @@ export function useGetBuyOrder(buyOrderId: string): {
     data,
     isLoading,
     isError,
-  } = ReactQuery.useQuery([GET_BUY_ORDER_KEY + buyOrderId], () =>
-      axios.get(`${getBaseUrl()}/${API_ROUTES.BUY_ORDERS}/${buyOrderId}`).then((res) => res.data),
-  );
-
-  if (buyOrderId === '-1') {
-    return {
-      buyOrder: null,
-      isLoading: false,
-      isError: false,
+  } = ReactQuery.useQuery([GET_BUY_ORDER_KEY + buyOrderId], () => {
+      if (buyOrderId !== '-1') {
+        return axios.get(`${getBaseUrl()}/${API_ROUTES.BUY_ORDERS}/${buyOrderId}`).then((res) => res.data)
+      } else {
+        return {
+          buyOrder: null,
+          isLoading: false,
+          isError: false,
+        }
+      }
     }
-  }
+  );
 
   return {
     buyOrder: data,

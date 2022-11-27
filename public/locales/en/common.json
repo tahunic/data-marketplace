@@ -21,5 +21,6 @@
   "edit_order": "Edit order",
   "save_order": "Save order",
   "delete_order": "Delete order",
-  "per_record": "per record"
+  "per_record": "per record",
+  "add": "Add"
 }
