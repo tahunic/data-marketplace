@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { CountrySelectable } from '@store/countries';
 import { theme } from '@styles/theme';
-import { Pill } from '@components/atoms/Pill';
+import { Pill } from '@components/atoms';
 
 export type CountryControlProps = {
   countries: CountrySelectable[];

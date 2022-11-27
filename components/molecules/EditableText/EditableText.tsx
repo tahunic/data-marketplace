@@ -1,7 +1,6 @@
 import React from 'react';
 import { Input, InputProps, Text } from 'theme-ui';
-import { FieldLabel } from '@components/atoms/FieldLabel';
-import { Flex } from '@components/atoms/Flex';
+import { FieldLabel, Flex } from '@components/atoms';
 
 type EditableFieldProps = InputProps & {
   editMode: boolean;

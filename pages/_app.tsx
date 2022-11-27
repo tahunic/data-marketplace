@@ -3,10 +3,10 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'theme-ui';
 import { theme } from '@styles/theme';
 import { appWithTranslation } from 'next-i18next';
-import { ErrorBoundary } from '@components/molecules/ErrorBoundary';
 import StoreProvider from '@store/StoreProvider';
 import { ServiceProvider } from '@hooks/ServiceProvider';
-import { Layout } from '@components/organisms/Layout';
+import { ErrorBoundary } from '@components/molecules';
+import { Layout } from '@components/organisms';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

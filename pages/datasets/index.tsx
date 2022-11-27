@@ -1,15 +1,14 @@
-import { NextPage } from 'next';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
+import { NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { Container } from 'theme-ui';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { DatasetCardList } from '@components/organisms/DatasetCardList';
-import { FloatingCountryControl } from '@components/organisms/FloatingCountryControl';
+import { PageHeader } from '@components/atoms';
+import { ShowingResultsFrom } from '@components/molecules';
+import { DatasetCardList, FloatingCountryControl } from '@components/organisms';
 import { useGetDatasets } from '@hooks/useGetDatasets';
 import { CountrySelectable, useCountries } from '@store/countries';
-import React, { useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
-import { PageHeader } from '@components/atoms/PageHeader';
-import { ShowingResultsFrom } from '@components/molecules/ShowingResultsFrom';
-import { Container } from 'theme-ui';
 
 const DatasetsPage: NextPage = () => {
   const { countries, selectedCountries, setCountries } = useCountries();

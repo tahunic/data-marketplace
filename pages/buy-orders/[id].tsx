@@ -1,19 +1,20 @@
+import React from 'react';
+import Head from 'next/head';
 import { NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useGetBuyOrder } from '@hooks/useGetBuyOrder';
-import { Loader } from '@components/atoms/Loader';
-import React from 'react';
 import { useTranslation } from 'next-i18next';
-import Head from 'next/head';
-import { BuyOrderDetails } from '@components/organisms/BuyOrderDetails/BuyOrderDetails';
-import { useGetDatasets } from '@hooks/useGetDatasets';
 import { Container } from 'theme-ui';
-import { PageHeader } from '@components/atoms/PageHeader';
+import { Loader, PageHeader } from '@components/atoms';
+import { BuyOrderDetails } from '@components/organisms';
 import { useCountries } from '@store/countries';
-import { usePutBuyOrder } from '@hooks/usePutBuyOrder';
-import { BuyOrder } from '@data/models/BuyOrder.model';
-import { usePostBuyOrder } from '@hooks/usePostBuyOrder';
-import { useDeleteBuyOrder } from '@hooks/useDeleteBuyOrder';
+import {
+  useDeleteBuyOrder,
+  useGetDatasets,
+  useGetBuyOrder,
+  usePostBuyOrder,
+  usePutBuyOrder
+} from '@hooks';
+import { BuyOrder } from '@data/models';
 
 type BuyOrderDetailsProps = {
   buyOrderId: string;

@@ -1,17 +1,15 @@
-import { NextPage } from 'next';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
+import { NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { BuyOrderCardList } from '@components/organisms/BuyOrderCardList';
+import { Container } from 'theme-ui';
+import { Button, PageHeader } from '@components/atoms';
+import { ShowingResultsFrom } from '@components/molecules';
+import { BuyOrderCardList, FloatingCountryControl } from '@components/organisms';
 import { useGetBuyOrders } from '@hooks/useGetBuyOrders';
 import { CountrySelectable, useCountries } from '@store/countries';
-import React, { useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
-import { PageHeader } from '@components/atoms/PageHeader';
-import { ShowingResultsFrom } from '@components/molecules/ShowingResultsFrom';
-import { Container } from 'theme-ui';
-import { FloatingCountryControl } from '@components/organisms/FloatingCountryControl';
-import { Button } from '@components/atoms/Button';
-import { useRouter } from 'next/router';
 import { ROUTES } from '@data/routes';
 
 const BuyOrdersPage: NextPage = () => {

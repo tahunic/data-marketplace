@@ -1,17 +1,13 @@
-import React, { FC, useEffect, useState } from 'react';
-import { DatasetSelectable } from '@data/models/Dataset.model';
-import { FieldLabel } from '@components/atoms/FieldLabel';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { format } from 'date-fns';
 import { theme } from '@styles/theme';
-import { Button } from '@components/atoms/Button';
-import { DatasetMiniCardList } from '@components/organisms/DatasetMiniCardList';
-import { EditableText } from '@components/molecules/EditableText';
-import { CountryControl } from '@components/molecules/CountryControl';
+import { Button, FieldLabel, Flex } from '@components/atoms';
+import { CountryControl, EditableText } from '@components/molecules';
+import { DatasetMiniCardList } from '@components/organisms';
+import { DatasetSelectable } from '@data/models';
 import { CountrySelectable } from '@store/countries';
-import { getAvailableRecords } from '@services/dataset.service';
-import { Flex } from '@components/atoms/Flex';
-import { getForecastedRecordCount } from '@services/buy-order.service';
+import { getAvailableRecords, getForecastedRecordCount } from '@services';
 
 type BuyOrderDetailsProps = {
   id?: number;

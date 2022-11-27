@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { CountryControl, CountryControlProps } from '@components/molecules/CountryControl';
+import { Flex } from '@components/atoms';
+import { CountryControl, CountryControlProps } from '@components/molecules';
 import { theme } from '@styles/theme';
-import { Flex } from '@components/atoms/Flex';
 
 export const FloatingCountryControl: FC<CountryControlProps> = ({
   countries,

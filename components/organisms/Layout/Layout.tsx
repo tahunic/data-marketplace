@@ -1,11 +1,11 @@
 import React, { FC, ReactNode, useEffect } from 'react';
-import { Header } from '@components/molecules/Header';
+import { useTranslation } from 'next-i18next';
+import { Toaster } from 'react-hot-toast';
+import { Loader } from '@components/atoms';
+import { Header } from '@components/molecules';
 import { useGetCountries } from '@hooks/useGetCountries';
 import { useCountries } from '@store/countries';
-import { Country } from '@data/models/Country.model';
-import { useTranslation } from 'next-i18next';
-import { Loader } from '@components/atoms/Loader';
-import { Toaster } from 'react-hot-toast';
+import { Country } from '@data/models';
 
 type LayoutProps = {
   children: ReactNode;

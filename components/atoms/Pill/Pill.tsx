@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Text } from 'theme-ui';
 import { theme } from '@styles/theme';
-import { Button, ButtonProps } from '@components/atoms/Button';
+import { Button, ButtonProps } from '@components/atoms';
 
 type PillProps = ButtonProps & {
   title: string;

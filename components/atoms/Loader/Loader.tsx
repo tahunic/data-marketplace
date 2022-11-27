@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Spinner } from 'theme-ui';
-import { Flex } from '@components/atoms/Flex';
+import { Flex } from '@components/atoms';
 
 export const Loader: FC = () => {
   return (

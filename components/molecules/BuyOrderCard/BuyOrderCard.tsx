@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import { Text } from 'theme-ui';
-import { FieldLabel } from '@components/atoms/FieldLabel';
-import { useTranslation } from 'next-i18next';
-import { theme } from '@styles/theme';
-import { format } from 'date-fns';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { format } from 'date-fns';
+import { Flex, FieldLabel } from '@components/atoms';
+import { theme } from '@styles/theme';
 import { ROUTES } from '@data/routes';
-import { Flex } from '@components/atoms/Flex';
 
 type BuyOrderCardProps = {
   id: number;

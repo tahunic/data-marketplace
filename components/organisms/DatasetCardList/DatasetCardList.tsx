@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { Dataset } from '@data/models/Dataset.model';
-import { DatasetCard } from '@components/molecules/DatasetCard';
-import { Country } from '@data/models/Country.model';
-import { Flex } from '@components/atoms/Flex';
+import { Country, Dataset } from '@data/models';
+import { Flex } from '@components/atoms';
+import { DatasetCard } from '@components/molecules';
 
 type DatasetCardListProps = {
   datasets: Dataset[];

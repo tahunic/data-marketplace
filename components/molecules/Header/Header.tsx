@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'next-i18next';
-import { NavLink } from '@components/atoms/NavLink';
+import { useRouter } from 'next/router';
+import { Flex, NavLink } from '@components/atoms';
 import { ROUTES } from '@data/routes';
 import { theme } from '@styles/theme';
-import { useRouter } from 'next/router';
-import { Flex } from '@components/atoms/Flex';
 
 export const Header: FC = () => {
   const { t } = useTranslation();

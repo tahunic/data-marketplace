@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { Text } from 'theme-ui';
 import { useTranslation } from 'next-i18next';
 import { useCountries } from '@store/countries';
-import { Country } from '@data/models/Country.model';
-import { Flex } from '@components/atoms/Flex';
+import { Flex } from '@components/atoms';
+import { Country } from '@data/models';
 
 type ShowingResultsFromProps = {
   totalResults: number;

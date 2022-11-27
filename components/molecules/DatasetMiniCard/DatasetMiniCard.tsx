@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next';
 import { Text } from 'theme-ui';
 import Image from 'next/image';
 import { theme } from '@styles/theme';
-import { Flex } from '@components/atoms/Flex';
+import { Flex } from '@components/atoms';
 
 type DatasetMiniCardProps = {
   title: string;

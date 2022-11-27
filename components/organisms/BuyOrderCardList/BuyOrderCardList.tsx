@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
+import { Flex } from '@components/atoms';
+import { BuyOrderCard } from '@components/molecules';
 import { BuyOrder } from '@data/models/BuyOrder.model';
-import { BuyOrderCard } from '@components/molecules/BuyOrderCard';
-import { Flex } from '@components/atoms/Flex';
 
 type BuyOrderCardListProps = {
   buyOrders: BuyOrder[];

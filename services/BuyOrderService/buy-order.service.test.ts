@@ -1,4 +1,4 @@
-import { getForecastedRecordCount } from '@services/buy-order.service';
+import { getForecastedRecordCount } from './buy-order.service';
 const datasets = require('@test/mocks/datasets.mock.json');
 const countries = require('@test/mocks/countries.mock.json');
 

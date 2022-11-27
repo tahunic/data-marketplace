@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { DatasetSelectable } from '@data/models/Dataset.model';
-import { DatasetMiniCard } from '@components/molecules/DatasetMiniCard';
-import { Flex } from '@components/atoms/Flex';
+import { Flex } from '@components/atoms';
+import { DatasetMiniCard } from '@components/molecules';
+import { DatasetSelectable } from '@data/models';
 
 type DatasetMiniCardListProps = {
   datasets?: DatasetSelectable[];

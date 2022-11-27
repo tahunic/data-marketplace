@@ -3,9 +3,7 @@ import { Box, Text } from 'theme-ui';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { theme } from '@styles/theme';
-import { FieldLabel } from '@components/atoms/FieldLabel';
-import { Pill } from '@components/atoms/Pill';
-import { Flex } from '@components/atoms/Flex';
+import { FieldLabel, Flex, Pill } from '@components/atoms';
 
 type DatasetCardProps = {
   title: string;
