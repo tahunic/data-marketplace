@@ -22,7 +22,13 @@
   "save_order": "Save order",
   "delete_order": "Delete order",
   "per_record": "per record",
-  "add": "Add",
+  "create_new_order": "Create new order",
   "cancel": "Cancel",
-  "delete_order_confirm": "Are you sure you want to delete this order?"
+  "delete_order_confirm": "Are you sure you want to delete this order?",
+  "delete_order_success": "Buy order has been deleted",
+  "delete_order_error": "Could not delete the order",
+  "post_order_success": "Buy order has been added",
+  "post_order_error": "Could not add order",
+  "put_order_success": "Buy order has been updated",
+  "put_order_error": "Could not updated the order"
 }

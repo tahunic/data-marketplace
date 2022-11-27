@@ -5,6 +5,7 @@ import { useCountries } from '@store/countries';
 import { Country } from '@data/models/Country.model';
 import { useTranslation } from 'next-i18next';
 import { Loader } from '@components/atoms/Loader';
+import { Toaster } from 'react-hot-toast';
 
 type LayoutProps = {
   children: ReactNode;
@@ -33,6 +34,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
     <>
       <Header />
       <main>{children}</main>
+      <Toaster />
     </>
   );
 };

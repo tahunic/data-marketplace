@@ -50,7 +50,7 @@ const BuyOrdersPage: NextPage = () => {
           sx={{ textDecoration: 'underline' }}
           onClick={() => push(`${ROUTES.BUY_ORDERS}/-1`)}
         >
-          {t('add', 'Add')}
+          {t('create_new_order', 'Create new order')}
         </Button>
 
         <ShowingResultsFrom totalResults={buyOrders.length} />
