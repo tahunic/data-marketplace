@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { DatasetSelectable } from '@data/models/Dataset.model';
 import { FieldLabel } from '@components/atoms/FieldLabel';
 import { useTranslation } from 'next-i18next';
@@ -11,6 +11,7 @@ import { CountryControl } from '@components/molecules/CountryControl';
 import { CountrySelectable } from '@store/countries';
 import { getAvailableRecords } from '@services/dataset.service';
 import { Flex } from '@components/atoms/Flex';
+import { getForecastedRecordCount } from '@services/buy-order.service';
 
 type BuyOrderDetailsProps = {
   id?: number;
@@ -69,14 +70,23 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
         />
       </Flex>
 
-      <EditableText
-        type="number"
-        label={t('order_budget', 'Order budget')}
-        editMode={editMode}
-        defaultValue={budget}
-        onChange={(e) => setForm({ ...form, budget: Number(e.target.value) })}
-        invalid={!form.budget}
-      />
+      <Flex gap="15px">
+        <EditableText
+          type="number"
+          label={t('order_budget', 'Order budget')}
+          editMode={editMode}
+          defaultValue={budget}
+          onChange={(e) => setForm({ ...form, budget: Number(e.target.value) })}
+          invalid={!form.budget}
+        />
+        <EditableText
+          label={t('forecasted_record_count', 'Forecasted record count')}
+          editMode={editMode}
+          defaultValue={getForecastedRecordCount(form.datasets, form.countries)}
+          readonly={editMode}
+        />
+      </Flex>
+
 
       <Flex flexDirection="column">
         <FieldLabel>{t('included_datasets', 'Included datasets')}</FieldLabel>
