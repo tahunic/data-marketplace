@@ -45,7 +45,11 @@ const BuyOrdersPage: NextPage = () => {
       <Container sx={{ marginBottom: '150px', width: '680px' }}>
         <PageHeader title={t('buy_orders', 'Buy Orders')} />
 
-        <Button px={0} sx={{ textDecoration: 'underline' }} onClick={() => push(`${ROUTES.BUY_ORDERS}/-1`)}>
+        <Button
+          px={0}
+          sx={{ textDecoration: 'underline' }}
+          onClick={() => push(`${ROUTES.BUY_ORDERS}/-1`)}
+        >
           {t('add', 'Add')}
         </Button>
 

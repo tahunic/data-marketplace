@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Flex } from 'theme-ui';
 import { CountryControl, CountryControlProps } from '@components/molecules/CountryControl';
 import { theme } from '@styles/theme';
+import { Flex } from '@components/atoms/Flex';
 
 export const FloatingCountryControl: FC<CountryControlProps> = ({
   countries,
@@ -21,10 +21,10 @@ export const FloatingCountryControl: FC<CountryControlProps> = ({
       }}
     >
       <Flex
+        gap="10px"
+        p="20px"
         sx={{
-          gap: '10px',
           border: `2px solid ${theme.colors?.secondaryText}`,
-          padding: '20px',
           background: theme.colors?.primary
         }}
       >

@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { Flex } from 'theme-ui';
 import { Dataset } from '@data/models/Dataset.model';
 import { DatasetCard } from '@components/molecules/DatasetCard';
 import { Country } from '@data/models/Country.model';
+import { Flex } from '@components/atoms/Flex';
 
 type DatasetCardListProps = {
   datasets: Dataset[];
@@ -13,10 +13,8 @@ export const DatasetCardList: FC<DatasetCardListProps> = ({
 }) => {
   return (
     <Flex
-      sx={{
-        gap: '40px',
-        flexWrap: 'wrap'
-      }}
+      gap="40px"
+      sx={{ flexWrap: 'wrap' }}
     >
       {datasets.map(dataset => (
         <DatasetCard

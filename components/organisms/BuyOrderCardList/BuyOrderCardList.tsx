@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Flex } from 'theme-ui';
 import { BuyOrder } from '@data/models/BuyOrder.model';
 import { BuyOrderCard } from '@components/molecules/BuyOrderCard';
+import { Flex } from '@components/atoms/Flex';
 
 type BuyOrderCardListProps = {
   buyOrders: BuyOrder[];
@@ -12,10 +12,8 @@ export const BuyOrderCardList: FC<BuyOrderCardListProps> = ({
 }) => {
   return (
     <Flex
-      sx={{
-        gap: '20px',
-        flexWrap: 'wrap'
-      }}
+      gap="20px"
+      sx={{ flexWrap: 'wrap' }}
     >
       {buyOrders.map((buyOrder: BuyOrder) => (
         <BuyOrderCard

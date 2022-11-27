@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { Box, Flex, Text } from 'theme-ui';
+import { Box, Text } from 'theme-ui';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { theme } from '@styles/theme';
 import { FieldLabel } from '@components/atoms/FieldLabel';
 import { Pill } from '@components/atoms/Pill';
+import { Flex } from '@components/atoms/Flex';
 
 type DatasetCardProps = {
   title: string;
@@ -33,10 +34,8 @@ export const DatasetCard: FC<DatasetCardProps> = ({
       sx={{ maxWidth: '400px' }}
     >
       <Flex
-        sx={{
-          gap: '40px',
-          alignItems: 'center'
-        }}
+        gap="40px"
+        alignItems="center"
       >
         <Image
           src={thumbnailSrc}
@@ -47,31 +46,32 @@ export const DatasetCard: FC<DatasetCardProps> = ({
         <Text as="h2">{title}</Text>
       </Flex>
       <Flex
-        pt={'5px'}
-        sx={{ flexDirection: 'column', gap: '5px' }}
+        pt="5px"
+        flexDirection="column"
       >
         <FieldLabel>{t('dataset_description', 'Dataset Description')}</FieldLabel>
         <Text>{description}</Text>
       </Flex>
       <Flex
-        py={'5px'}
-        sx={{ justifyContent: 'space-between' }}
+        py="5px"
+        justifyContent="space-between"
       >
         <FieldLabel>{t('cost_per_record', 'Cost Per Record')}</FieldLabel>
         <Text>${pricePerRecord}</Text>
       </Flex>
       <Flex
         py={'5px'}
-        sx={{ justifyContent: 'space-between' }}
+        justifyContent="space-between"
       >
         <FieldLabel>{t('available_records', 'Available Records')}</FieldLabel>
         <Text>{availableRecords} {t('records', 'records')}</Text>
       </Flex>
-      <Flex sx={{ flexDirection: 'column', gap: '5px' }}>
+      <Flex flexDirection="column">
         <FieldLabel>{t('included_countries', 'Included countries')}</FieldLabel>
         <Flex
           py={'5px'}
-          sx={{ gap: '10px', flexWrap: 'wrap' }}
+          gap="10px"
+          sx={{ flexWrap: 'wrap' }}
         >
           {countries.map((country: string) => <Pill key={country} title={country} />)}
         </Flex>

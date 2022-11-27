@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'next-i18next';
-import { Flex, Text } from 'theme-ui';
+import { Text } from 'theme-ui';
 import Image from 'next/image';
 import { theme } from '@styles/theme';
+import { Flex } from '@components/atoms/Flex';
 
 type DatasetMiniCardProps = {
   title: string;
@@ -27,14 +28,13 @@ export const DatasetMiniCard: FC<DatasetMiniCardProps> = ({
 
   return (
     <Flex
-      p={'10px'}
+      p="10px"
+      width="49%"
+      opacity={disabled ? 0.3 : 1}
       sx={{
-        gap: '5px',
         background: selected ? theme.colors?.green : theme.colors?.background,
         border: `2px solid ${theme.colors?.text}`,
-        width: '49%',
         cursor: disabled ? 'not-allowed' : 'pointer',
-        opacity: disabled ? 0.3 : 1,
       }}
       onClick={() => !disabled && onClick()}
     >
@@ -44,7 +44,10 @@ export const DatasetMiniCard: FC<DatasetMiniCardProps> = ({
         height={40}
         width={40}
       />
-      <Flex sx={{ flexDirection: 'column', justifyContent: 'center' }}>
+      <Flex
+        flexDirection="column"
+        justifyContent="center"
+      >
         <Text as="h5">{title}</Text>
         <Text as="small" sx={{color: theme.colors?.secondaryText}}>
           ${pricePerRecord} {t('per_record', 'Per record')}

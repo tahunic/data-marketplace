@@ -1,6 +1,7 @@
 import React from 'react';
-import { Flex, Input, InputProps, Text } from 'theme-ui';
+import { Input, InputProps, Text } from 'theme-ui';
 import { FieldLabel } from '@components/atoms/FieldLabel';
+import { Flex } from '@components/atoms/Flex';
 
 type EditableFieldProps = InputProps & {
   editMode: boolean;
@@ -21,12 +22,9 @@ export const EditableText = React.forwardRef<HTMLInputElement, EditableFieldProp
 }, ref) => {
   return (
     <Flex
-      sx={{
-        gap: '5px',
-        flexDirection: 'column',
-        opacity: readonly ? 0.3 : 1,
-        width: '45%',
-      }}
+      flexDirection="column"
+      opacity={readonly ? 0.3 : 1}
+      width="45%"
     >
       <FieldLabel>{label}</FieldLabel>
       {editMode && !readonly ?

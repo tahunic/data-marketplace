@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { DatasetSelectable } from '@data/models/Dataset.model';
-import { Flex } from 'theme-ui';
 import { DatasetMiniCard } from '@components/molecules/DatasetMiniCard';
+import { Flex } from '@components/atoms/Flex';
 
 type DatasetMiniCardListProps = {
   datasets?: DatasetSelectable[];
@@ -16,10 +16,8 @@ export const DatasetMiniCardList: FC<DatasetMiniCardListProps> = ({
 }) => {
   return (
     <Flex
-      sx={{
-        gap: '10px',
-        flexWrap: 'wrap',
-    }}
+      gap="10px"
+      sx={{ flexWrap: 'wrap' }}
     >
       {datasets?.map(dataset =>
         <DatasetMiniCard
