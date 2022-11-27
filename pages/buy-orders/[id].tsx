@@ -13,6 +13,7 @@ import { useCountries } from '@store/countries';
 import { usePutBuyOrder } from '@hooks/usePutBuyOrder';
 import { BuyOrder } from '@data/models/BuyOrder.model';
 import { usePostBuyOrder } from '@hooks/usePostBuyOrder';
+import { useDeleteBuyOrder } from '@hooks/useDeleteBuyOrder';
 
 type BuyOrderDetailsProps = {
   buyOrderId: string;
@@ -26,6 +27,7 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
   const { buyOrder, isLoading, isError } = useGetBuyOrder(buyOrderId);
   const { putBuyOrder } = usePutBuyOrder();
   const { postBuyOrder } = usePostBuyOrder();
+  const { deleteBuyOrder } = useDeleteBuyOrder();
   const { datasets, isLoading: isDatasetsLoading, isError: isDatasetsError } = useGetDatasets(countries);
 
   function onSubmit(form): void {
@@ -41,6 +43,10 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
     } else {
       postBuyOrder({ payload });
     }
+  }
+
+  function onDelete(id: string): void {
+    deleteBuyOrder({ id });
   }
 
   if (isLoading || isDatasetsLoading) {
@@ -68,13 +74,16 @@ const BuyOrderDetailsPage: NextPage<BuyOrderDetailsProps> = ({
           datasets={datasets.map(dataset => ({
             ...dataset,
             selected: buyOrder?.datasetIds?.includes(dataset.id),
-            disabled: !dataset.includedCountries?.some(country => buyOrder?.countries?.includes(country.countryCode))
+            disabled: buyOrder?.id
+              ? !dataset.includedCountries?.some(country => buyOrder?.countries?.includes(country.countryCode))
+              : false
           }))}
           countries={countries.map(country => ({
             ...country,
             selected: buyOrder?.id ? buyOrder?.countries?.includes(country.countryCode) : true,
           }))}
           onSubmit={onSubmit}
+          onDelete={onDelete}
         />
       </Container>
     </>

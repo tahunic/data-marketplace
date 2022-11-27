@@ -20,6 +20,7 @@ type BuyOrderDetailsProps = {
   datasets: DatasetSelectable[];
   countries: CountrySelectable[];
   onSubmit?: (form) => void;
+  onDelete?: (id) => void;
 }
 
 export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
@@ -30,6 +31,7 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
   datasets,
   countries,
   onSubmit,
+  onDelete,
 }) => {
   const { t } = useTranslation();
   const [editMode, setEditMode] = useState(!id);
@@ -128,9 +130,16 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
             <Button type="button" onClick={() => setEditMode(true)}>
               {t('edit_order', 'Edit order')}
             </Button>
-            <Button type="button" onClick={() => alert('Delete?')}>
-              {t('delete_order', 'Delete order')}
-            </Button>
+            {onDelete &&
+              <Button type="button" onClick={() => {
+                if (confirm(t('delete_order_confirm', 'Are you sure you want to delete this order?') ?? '')) {
+                  onDelete(form.id);
+                }
+              }}
+              >
+                {t('delete_order', 'Delete order')}
+              </Button>
+            }
           </>}
       </Flex>
     </Flex>

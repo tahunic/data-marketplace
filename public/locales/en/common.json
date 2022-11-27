@@ -23,5 +23,6 @@
   "delete_order": "Delete order",
   "per_record": "per record",
   "add": "Add",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "delete_order_confirm": "Are you sure you want to delete this order?"
 }
