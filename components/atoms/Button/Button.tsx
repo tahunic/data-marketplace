@@ -33,7 +33,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     disabled={disabled || loading}
     {...props}
   >
-    {loading ? <Spinner size={24} color={theme.colors?.background} /> : children}
+    {loading ? <Spinner
+      data-testid="loading-spinner"
+      size={24}
+      color={theme.colors?.background}
+    /> : children}
   </ThemeUI.Button>
 ));
 

@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Flex, Text } from 'theme-ui';
+import { Flex } from 'theme-ui';
 import { DatasetSelectable } from '@data/models/Dataset.model';
 import { FieldLabel } from '@components/atoms/FieldLabel';
 import { useTranslation } from 'next-i18next';

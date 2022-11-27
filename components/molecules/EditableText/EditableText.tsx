@@ -26,7 +26,7 @@ export const EditableText = React.forwardRef<HTMLInputElement, EditableFieldProp
         flexDirection: 'column',
         opacity: readonly ? 0.3 : 1,
         width: '45%',
-    }}
+      }}
     >
       <FieldLabel>{label}</FieldLabel>
       {editMode && !readonly ?
