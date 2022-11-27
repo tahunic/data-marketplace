@@ -11,7 +11,10 @@ const nextConfig = {
   publicRuntimeConfig: {
     nextPublicApiBaseUri: NEXT_PUBLIC_API_BASE_URI
   },
-  i18n,
+  i18n: {
+    locales: ['en'],
+    defaultLocale: 'en'
+  },
   images: {
     domains: ['picsum.photos']
   }

@@ -15,4 +15,3 @@ export const getIncludedCountries = (dataset: Dataset, countries: Country[]): Co
     .filter((country: Country) => country.storedData
       .some((sd: StoredData) => sd.datasetId === dataset.id && sd.recordCount > 0))
 }
-
