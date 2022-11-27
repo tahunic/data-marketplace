@@ -6,7 +6,6 @@ type EditableFieldProps = InputProps & {
   editMode: boolean;
   label: string;
   defaultValue?: string | number;
-  invalid?: boolean;
   readonly?: boolean;
 }
 
@@ -15,7 +14,6 @@ export const EditableText = React.forwardRef<HTMLInputElement, EditableFieldProp
   label,
   name,
   defaultValue,
-  invalid,
   readonly,
   ...props
 }, ref) => {
@@ -30,9 +28,6 @@ export const EditableText = React.forwardRef<HTMLInputElement, EditableFieldProp
         <Input
           ref={ref}
           defaultValue={defaultValue}
-          sx={{
-            borderColor: invalid && 'red'
-          }}
           {...props}
         /> :
         <Text>{defaultValue}</Text>}

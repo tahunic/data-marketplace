@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { format } from 'date-fns';
 import { theme } from '@styles/theme';
@@ -31,24 +31,35 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
   onSubmit,
   onDelete,
 }) => {
+  const initialState = { id, datasets, countries };
   const { t } = useTranslation();
+
   const [editMode, setEditMode] = useState(!id);
-  const initialState = {
-    id: id,
-    name: orderName,
-    budget,
-    createdAt: dateCreated,
-    datasets,
-    countries,
-  };
   const [form, setForm] = useState(initialState);
 
+  const nameRef = useRef<HTMLInputElement>(null);
+  const budgetRef = useRef<HTMLInputElement>(null);
+
   function isValid() {
-    const { name, budget, datasets: formDatasets, countries: formCountries } = form;
+    const name = nameRef?.current?.value as string;
+    const budget = Number(budgetRef?.current?.value);
+    const { datasets: formDatasets, countries: formCountries } = form;
     return name?.length > 1 &&
-      Number(budget) > 0 &&
+      budget > 0 &&
       formDatasets?.filter(dataset => dataset.selected)?.length > 0 &&
-      formCountries?.filter(country => country.selected)?.length > 0
+      formCountries?.filter(country => country.selected)?.length > 0;
+  }
+
+  function prepareSubmit() {
+    if (isValid() && onSubmit) {
+      onSubmit({
+        ...form,
+        name: nameRef?.current?.value,
+        budget: Number(budgetRef?.current?.value),
+      })
+    } else {
+      toast.error(t('one_or_more_validation_errors', 'One or more validation errors'));
+    }
   }
 
   return (
@@ -64,8 +75,7 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
           label={t('order_name', 'Order name')}
           editMode={editMode}
           defaultValue={orderName}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          invalid={form.name?.length === 0}
+          ref={nameRef}
         />
         <EditableText
           label={t('date_created', 'Date Created')}
@@ -81,8 +91,7 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
           label={t('order_budget', 'Order budget')}
           editMode={editMode}
           defaultValue={budget}
-          onChange={(e) => setForm({ ...form, budget: Number(e.target.value) })}
-          invalid={Number(form.budget) <= 0}
+          ref={budgetRef}
         />
         <EditableText
           label={t('forecasted_record_count', 'Forecasted record count')}
@@ -91,7 +100,6 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
           readonly={editMode}
         />
       </Flex>
-
 
       <Flex flexDirection="column">
         <FieldLabel>{t('included_datasets', 'Included datasets')}</FieldLabel>
@@ -131,28 +139,23 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
       <Flex justifyContent="flex-end">
         {editMode ?
           <>
-            <Button type="submit" onClick={() => {
+            <Button onClick={() => {
               setEditMode(false);
               setForm(initialState);
-            }}>
+            }}
+            >
               {t('cancel', 'Cancel')}
             </Button>
-            <Button type="submit" onClick={() => {
-              if (isValid()) {
-                onSubmit && onSubmit(form)
-              } else {
-                toast.error(t('one_or_more_validation_errors', 'One or more validation errors'));
-              }
-            }}>
+            <Button onClick={() => prepareSubmit()}>
               {t('save', 'Save')}
             </Button>
           </> :
           <>
-            <Button type="button" onClick={() => setEditMode(true)}>
+            <Button onClick={() => setEditMode(true)}>
               {t('edit_order', 'Edit order')}
             </Button>
             {onDelete &&
-              <Button type="button" onClick={() => {
+              <Button onClick={() => {
                 if (confirm(t('delete_order_confirm', 'Are you sure you want to delete this order?') ?? '')) {
                   onDelete(form.id);
                 }
