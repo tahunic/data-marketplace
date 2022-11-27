@@ -40,7 +40,10 @@ const DatasetsPage: NextPage = () => {
       <Container sx={{ marginBottom: '150px' }}>
         <PageHeader title={t('datasets', 'Datasets')} />
 
-        <ShowingResultsFrom totalResults={datasets.length} />
+        <ShowingResultsFrom
+          totalResults={datasets.length}
+          countryNames={selectedCountries?.map(country => country.name)?.join(', ')}
+        />
 
         <DatasetCardList datasets={datasets} />
       </Container>

@@ -12,7 +12,7 @@ type DatasetMiniCardProps = {
   pricePerRecord: number;
   selected?: boolean;
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const DatasetMiniCard: FC<DatasetMiniCardProps> = ({
@@ -36,7 +36,7 @@ export const DatasetMiniCard: FC<DatasetMiniCardProps> = ({
         border: `2px solid ${theme.colors?.text}`,
         cursor: disabled ? 'not-allowed' : 'pointer',
       }}
-      onClick={() => !disabled && onClick()}
+      onClick={() => !disabled && onClick && onClick()}
     >
       <Image
         src={thumbnailSrc}

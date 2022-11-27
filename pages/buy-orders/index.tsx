@@ -51,7 +51,10 @@ const BuyOrdersPage: NextPage = () => {
           {t('create_new_order', 'Create new order')}
         </Button>
 
-        <ShowingResultsFrom totalResults={buyOrders.length} />
+        <ShowingResultsFrom
+          totalResults={buyOrders.length}
+          countryNames={selectedCountries?.map(country => country.name)?.join(', ')}
+        />
 
         <BuyOrderCardList buyOrders={buyOrders} />
       </Container>
