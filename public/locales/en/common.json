@@ -31,5 +31,6 @@
   "post_order_error": "Could not add order",
   "put_order_success": "Buy order has been updated",
   "put_order_error": "Could not updated the order",
-  "forecasted_record_count": "Forecasted record count"
+  "forecasted_record_count": "Forecasted record count",
+  "one_or_more_validation_errors": "One or more validation errors"
 }

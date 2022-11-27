@@ -5,7 +5,6 @@ const countries = require('@test/mocks/countries.mock.json');
 
 describe('CountryControl component', () => {
   it('renders correctly', () => {
-    const date = new Date();
     const { container } = render(
       <CountryControl
         countries={countries}

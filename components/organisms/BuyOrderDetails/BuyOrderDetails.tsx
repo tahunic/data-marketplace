@@ -8,6 +8,7 @@ import { DatasetMiniCardList } from '@components/organisms';
 import { DatasetSelectable } from '@data/models';
 import { CountrySelectable } from '@store/countries';
 import { getAvailableRecords, getForecastedRecordCount } from '@services';
+import toast from 'react-hot-toast';
 
 type BuyOrderDetailsProps = {
   id?: number;
@@ -42,6 +43,14 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
   };
   const [form, setForm] = useState(initialState);
 
+  function isValid() {
+    const { name, budget, datasets: formDatasets, countries: formCountries } = form;
+    return name?.length > 1 &&
+      Number(budget) > 0 &&
+      formDatasets?.filter(dataset => dataset.selected)?.length > 0 &&
+      formCountries?.filter(country => country.selected)?.length > 0
+  }
+
   return (
     <Flex
       p="24px 50px"
@@ -73,7 +82,7 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
           editMode={editMode}
           defaultValue={budget}
           onChange={(e) => setForm({ ...form, budget: Number(e.target.value) })}
-          invalid={!form.budget}
+          invalid={Number(form.budget) <= 0}
         />
         <EditableText
           label={t('forecasted_record_count', 'Forecasted record count')}
@@ -128,7 +137,13 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
             }}>
               {t('cancel', 'Cancel')}
             </Button>
-            <Button type="submit" onClick={() => onSubmit && onSubmit(form)}>
+            <Button type="submit" onClick={() => {
+              if (isValid()) {
+                onSubmit && onSubmit(form)
+              } else {
+                toast.error(t('one_or_more_validation_errors', 'One or more validation errors'));
+              }
+            }}>
               {t('save', 'Save')}
             </Button>
           </> :
