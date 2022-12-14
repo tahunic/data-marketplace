@@ -2,7 +2,6 @@ import * as ReactQuery from 'react-query';
 import { getBaseUrl } from '@utils/constants';
 import axios from 'axios';
 import { Dataset } from '@data/models/Dataset.model';
-import { StoredData } from '@data/models/StoredData.model';
 import { Country } from '@data/models/Country.model';
 import { API_ROUTES } from '@data/routes';
 import { getAvailableRecords, getIncludedCountries } from '@services/DatasetService/dataset.service';
