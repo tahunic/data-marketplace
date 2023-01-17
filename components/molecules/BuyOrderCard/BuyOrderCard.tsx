@@ -56,7 +56,7 @@ export const BuyOrderCard: FC<BuyOrderCardProps> = ({
         width="33%"
       >
         <FieldLabel>{t('budget', 'Budget')}</FieldLabel>
-        <Text>${budget}</Text>
+        <Text>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(budget)}</Text>
       </Flex>
     </Flex>
   );

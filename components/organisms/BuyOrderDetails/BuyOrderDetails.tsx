@@ -75,12 +75,14 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
           label={t('order_name', 'Order name')}
           editMode={editMode}
           defaultValue={orderName}
+          textValue={orderName}
           ref={nameRef}
         />
         <EditableText
           label={t('date_created', 'Date Created')}
           editMode={editMode}
           defaultValue={format(new Date(dateCreated), 'MM/dd/yyyy')}
+          textValue={format(new Date(dateCreated), 'MM/dd/yyyy')}
           readonly={editMode}
         />
       </Flex>
@@ -91,12 +93,17 @@ export const BuyOrderDetails: FC<BuyOrderDetailsProps> = ({
           label={t('order_budget', 'Order budget')}
           editMode={editMode}
           defaultValue={budget}
+          textValue={Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+          }).format(Number(budgetRef?.current?.value))}
           ref={budgetRef}
         />
         <EditableText
           label={t('forecasted_record_count', 'Forecasted record count')}
           editMode={editMode}
           defaultValue={getForecastedRecordCount(form.datasets, form.countries)}
+          textValue={Intl.NumberFormat('en-US').format(getForecastedRecordCount(form.datasets, form.countries) as number)}
           readonly={editMode}
         />
       </Flex>
