@@ -46,7 +46,7 @@ const BuyOrdersPage: NextPage = () => {
         <Button
           px={0}
           sx={{ textDecoration: 'underline' }}
-          onClick={() => push(`${ROUTES.BUY_ORDERS}/-1`)}
+          onClick={() => push(`${ROUTES.BUY_ORDERS}/create`)}
         >
           {t('create_new_order', 'Create new order')}
         </Button>

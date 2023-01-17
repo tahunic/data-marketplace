@@ -16,7 +16,7 @@ export function useGetBuyOrder(buyOrderId: string): {
     isLoading,
     isError,
   } = ReactQuery.useQuery([GET_BUY_ORDER_KEY, { buyOrderId }], () => {
-      if (buyOrderId !== '-1') {
+      if (buyOrderId !== 'create') {
         return axios.get(`${getBaseUrl()}/${API_ROUTES.BUY_ORDERS}/${buyOrderId}`).then((res) => res.data)
       } else {
         return {
